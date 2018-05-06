@@ -9,6 +9,19 @@ import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 
 class Signin extends Component {
+
+    state = {
+        username: '',
+        password: ''
+    }
+
+    onInputChangeHandler = (event) => {
+        this.setState({
+            ...this.state,
+            [event.target.id]: event.target.value
+        });
+    }
+
     render () {
         return (
             <Grid container className={classes.Signin} justify='center' alignItems='center' >
@@ -32,13 +45,15 @@ class Signin extends Component {
                             fullWidth 
                             id='username'
                             label='Tên đăng nhập'
-                            margin='normal' />
+                            margin='normal'
+                            onChange={this.onInputChangeHandler} />
                         <TextField 
                             fullWidth 
                             id='password'
                             label='Mật khẩu' 
                             type='password'
-                            margin='normal' />
+                            margin='normal'
+                            onChange={this.onInputChangeHandler} />
                         <Button variant="raised" color="primary" className={classes.Button}>Đăng nhập</Button>
                     </Paper>
                 </Grid>
