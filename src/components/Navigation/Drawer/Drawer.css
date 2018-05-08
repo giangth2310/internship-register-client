@@ -1,0 +1,22 @@
+.Drawer {
+    width: 250px;
+    background-color: #2196f3;
+    color: white;
+}
+
+.Drawer .Paper {
+    background-color: transparent;
+}
+
+.Avatar {
+    width: 100px;
+    height: 100px;
+    margin: 40px auto 0 auto;
+    background: white;
+}
+
+.Username {
+    color: inherit;
+    text-align: center;
+    margin: 5px auto 15px auto;
+}

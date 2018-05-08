@@ -1,17 +1,23 @@
 .Signin {
     width: 100vw;
     height: 100vh;
-    position: relative;
     background-size: cover;
     background-image: url('../../assets/images/background.jpg');
-}
-
-.Button {
-    margin: 30px auto;
+    position: relative;
 }
 
 .Paper {
     padding: 30px;
+    width: 300px;
+    height: 400px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Button {
+    margin-top: 15px;
 }
 
 .Logo {

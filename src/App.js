@@ -3,8 +3,12 @@ import React, { Component } from 'react';
 import { create } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
 import { createGenerateClassName, jssPreset } from "material-ui/styles";
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import Signin from './containers/Signin/Signin';
+import Dashboard from './containers/Dashboard/Dashboard';
+import Signout from './containers/Signout/Signout';
 
 const generateClassName = createGenerateClassName();
 const jss = create(jssPreset());
@@ -12,12 +16,36 @@ jss.options.insertionPoint = "insertion-point-jss";
 
 class App extends Component {
   render() {
+    let routes = (
+      <Switch>
+          <Route path='/signin' component={Signin} />
+          <Redirect to='/signin' />
+      </Switch>
+    );
+
+    if (this.props.isSignin) {
+      routes = (
+        <Switch>
+            <Route path='/signin' component={Signin} />
+            <Route path='/signout' component={Signout} />
+            <Route path='/' component={Dashboard} />
+        </Switch>
+      );
+    }
+
     return (
       <JssProvider jss={jss} generateClassName={generateClassName}>
-        <Signin />
+        {/* <Dashboard /> */}
+        {routes}
       </JssProvider>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isSignin: state.signin.token !== null
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(App));

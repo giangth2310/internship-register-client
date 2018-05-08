@@ -1,0 +1,23 @@
+.NavigationItem {
+    text-decoration: none;
+    color: white;
+}
+
+.Item {
+    width: 200px;
+    margin: 15px auto;
+    border-radius: 5px;
+}
+
+.Text {
+    color: inherit;
+}
+
+.Item h3 {
+    color: inherit;
+}
+
+.active .Item {
+    background-color: #fff;
+    color : #2196f3;
+}
