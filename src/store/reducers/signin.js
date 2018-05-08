@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     loading: false,
     token: null,
+    isTokenExpired: false,
     userType: null,
     error: null
 }
@@ -21,7 +22,7 @@ const reducer = (state = initialState, action) => {
                 token: action.data.token,
                 userType: action.data.userType,
                 error: null,
-                loading: false
+                loading: false,
             }
         case actionTypes.SIGN_IN_FAIL: 
             return {
@@ -33,6 +34,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...initialState
+            }
+        case actionTypes.TOKEN_EXPIRED:
+            return {
+                ...state,
+                isTokenExpired: true
             }
         default:
             return state;

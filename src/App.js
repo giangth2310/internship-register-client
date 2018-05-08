@@ -9,12 +9,17 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Signin from './containers/Signin/Signin';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Signout from './containers/Signout/Signout';
+import * as actions from './store/actions/index';
 
 const generateClassName = createGenerateClassName();
 const jss = create(jssPreset());
 jss.options.insertionPoint = "insertion-point-jss";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.onAutoSignIn();
+  }
+
   render() {
     let routes = (
       <Switch>
@@ -48,4 +53,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = dispatch => {
+  return {
+    onAutoSignIn: () => dispatch(actions.tryAutoSignIn())
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

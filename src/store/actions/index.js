@@ -1,4 +1,5 @@
 export {
     signin,
-    signout
+    signout,
+    tryAutoSignIn
 } from './signin';
