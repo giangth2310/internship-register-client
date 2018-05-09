@@ -117,16 +117,19 @@ class Signin extends Component {
         if (this.props.isSignin) {
             authRedirect = <Redirect to='/dashboard' />;
         }
+        if (this.props.error) {
+            authRedirect = <Typography className={classes.ErrorMessage}>{this.props.error.message}</Typography>
+        }
 
         return (
             <Fragment>
                 <div className={classes.Signin}>
                     <Paper className={classes.Paper}>
                         {header}
+                        {authRedirect}
                         {form}
                     </Paper>
                 </div>
-                {authRedirect}
             </Fragment>
         );
     }
@@ -135,7 +138,8 @@ class Signin extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.signin.loading,
-        isSignin: state.signin.token !== null
+        isSignin: state.signin.token !== null,
+        error: state.signin.error
     }
 }
 

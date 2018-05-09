@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classes from './Dashboard.css';
-import Drawer from '../../components/Navigation/Drawer/Drawer';
+import Sidebar from '../Sidebar/Sidebar';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { Dialog } from 'material-ui';
@@ -14,7 +14,7 @@ class Dashboard extends Component {
     render () {
         return (
             <div className={classes.Dashboard}>
-                <Drawer />
+                <Sidebar />
                 <main className={classes.content}>
                     day la cai Dashboard
                 </main>

@@ -9,7 +9,6 @@
 .Paper {
     padding: 30px;
     width: 300px;
-    height: 400px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -24,4 +23,9 @@
     width: 100px;
     height: 100px;
     margin: auto;
+}
+
+.ErrorMessage {
+    text-align: center;
+    color: red;
 }

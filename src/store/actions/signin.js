@@ -1,19 +1,23 @@
 import * as actionTypes from './actionTypes';
 import Axios from 'axios';
 
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+};
+
 export const signinStart = () => {
     return {
         type: actionTypes.SIGN_IN_START
     }
 }
 
-export const signinSuccess = (token, userType) => {
+export const signinSuccess = (data, error) => {
+    Axios.defaults.headers.common['Authorization'] = data.token;    
     return {
         type: actionTypes.SIGN_IN_SUCCESS,
-        data: {
-            token: token,
-            userType: userType
-        }
+        data: data
     }
 }
 
@@ -35,24 +39,39 @@ export const signin = (username, password) => {
         Axios.post('/auth', authData)
             .then(response => {
                 console.log(response);
-                const expirationDate = new Date(new Date().getTime() + response.data.payload.expiresIn * 1000);
-                localStorage.setItem('token', response.data.payload.token);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userType', response.data.payload.userType);
-                dispatch(signinSuccess(response.data.payload.token, response.data.payload.userType));
-                dispatch(checkTokenExpiration(response.data.payload.expiresIn));
+                if (!response.data.error) {
+                    const payload = parseJwt(response.data.token);
+                    const expirationDate = new Date(new Date().getTime() + payload.expiresIn * 1000);
+                    const data = {
+                        token: response.data.token,
+                        expirationDate: expirationDate,
+                        userType: payload.userType,
+                        id: payload.id
+                    }
+                    for (let key in data) {
+                        localStorage.setItem(key, data[key]);
+                    }
+                    dispatch(signinSuccess(data, response.data.error));
+                    dispatch(checkTokenExpiration(payload.expiresIn));
+                } else {
+                    console.log(response.data.error);
+                    dispatch(signinFail(response.data.error));
+                }
             })
             .catch(error => {
                 console.log(error);
+                console.log('loi o catch');
                 dispatch(signinFail(error));
             });
     }
 }
 
 export const signout = () => {
+    delete Axios.defaults.headers.common['Authorization'];    
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
+    localStorage.removeItem('id');
     clearTimeout(autoSignout);
     return {
         type: actionTypes.SIGN_OUT
@@ -80,11 +99,15 @@ export const checkTokenExpiration = (expirationTime) => {
 export const tryAutoSignIn = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
-        const userType = localStorage.getItem('userType');
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
-        if (token && userType && expirationDate) {
+        if (token && expirationDate) {
             if (expirationDate > new Date()) {
-                dispatch(signinSuccess(token, userType));
+                const data = {
+                    token: token,
+                    userType: localStorage.getItem('userType'),
+                    id: localStorage.getItem('id')
+                }
+                dispatch(signinSuccess(data));
                 dispatch(checkTokenExpiration((expirationDate.getTime() - new Date().getTime()) / 1000));
             }
         } 

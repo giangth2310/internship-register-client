@@ -40,7 +40,6 @@ class App extends Component {
 
     return (
       <JssProvider jss={jss} generateClassName={generateClassName}>
-        {/* <Dashboard /> */}
         {routes}
       </JssProvider>
     );

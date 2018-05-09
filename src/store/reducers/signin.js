@@ -5,7 +5,8 @@ const initialState = {
     token: null,
     isTokenExpired: false,
     userType: null,
-    error: null
+    error: null,
+    id: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -21,8 +22,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 token: action.data.token,
                 userType: action.data.userType,
+                id: action.data.id,
                 error: null,
                 loading: false,
+                isTokenExpired: false
             }
         case actionTypes.SIGN_IN_FAIL: 
             return {
