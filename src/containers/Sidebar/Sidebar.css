@@ -1,7 +1,9 @@
 .Drawer {
     width: 250px;
+    height: 100vh;
     background-color: #2196f3;
     color: white;
+    position: fixed;
 }
 
 .Drawer .Paper {

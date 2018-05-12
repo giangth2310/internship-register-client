@@ -1,0 +1,10 @@
+.SearchTable {
+    margin: 50px 5%;
+    overflow-x: auto;
+}
+
+.dense {
+    padding-right: 0;
+}
+
+

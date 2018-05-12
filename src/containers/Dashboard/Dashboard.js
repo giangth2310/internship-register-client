@@ -3,38 +3,39 @@ import classes from './Dashboard.css';
 import Sidebar from '../Sidebar/Sidebar';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { Dialog } from 'material-ui';
-import { DialogContent } from 'material-ui';
-import { DialogActions } from 'material-ui';
-import { DialogContentText } from 'material-ui';
-import { DialogTitle } from 'material-ui';
-import { Button } from 'material-ui';
- 
+import { Route, Switch, Redirect } from 'react-router-dom';
+import ManageUser from '../admin/ManageUser/ManageUser';
+import PageNotFound from '../../components/PageNotFound/PageNotFound'; 
+import DialogMessage from '../../components/DialogMessage/DialogMessage';
+
 class Dashboard extends Component {
     render () {
+
+        let routes;
+
+        switch (localStorage.getItem('userType')) {
+            case 'admin':
+                routes = (
+                    <Switch>
+                        <Redirect exact from='/dashboard' to='/dashboard/student' />
+                        <Route path='/dashboard/:userType' component={ManageUser} />
+                        <Route component={PageNotFound} />
+                    </Switch>
+                );
+                break;
+        }
+
         return (
             <div className={classes.Dashboard}>
                 <Sidebar />
                 <main className={classes.content}>
-                    day la cai Dashboard
+                    {routes}
                 </main>
-                <Dialog 
+                <DialogMessage 
                     open={this.props.isTokenExpired}
-                    onClose={this.props.onTokenExpired} >
-                    <DialogTitle>
-                        Phiên làm việc hết hạn
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Mời bạn đăng nhập lại để tiếp tục sử dụng
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button color='primary' onClick={this.props.onTokenExpired}>
-                            OK
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                    onClose={this.props.onTokenExpired}
+                    title='Phiên làm việc hết hạn'
+                    content='Mời bạn đăng nhập lại để tiếp tục sử dụng' />
             </div>
         );
     }
@@ -42,7 +43,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
     return {
-        isTokenExpired: state.signin.isTokenExpired
+        isTokenExpired: state.signin.isTokenExpired,
     }
 }
 

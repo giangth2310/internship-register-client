@@ -27,7 +27,6 @@ class Signin extends Component {
 
     onInputChangeHandler = (event) => {
         this.setState({
-            ...this.state,
             [event.target.id]: event.target.value,
             [event.target.id + 'Touched']: true
         });
@@ -46,7 +45,6 @@ class Signin extends Component {
             isValid = true;
         }
         this.setState({
-            ...this.state,
             usernameError: !isValid
         });
         return isValid;
@@ -58,7 +56,6 @@ class Signin extends Component {
             isValid = true;
         }
         this.setState({
-            ...this.state,
             passwordError: !isValid
         });
         return isValid;

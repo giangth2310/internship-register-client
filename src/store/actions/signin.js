@@ -60,7 +60,6 @@ export const signin = (username, password) => {
             })
             .catch(error => {
                 console.log(error);
-                console.log('loi o catch');
                 dispatch(signinFail(error));
             });
     }

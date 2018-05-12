@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import classes from './Sidebar.css';
-import { List, Drawer, Avatar, Divider, Typography } from 'material-ui';
+import { 
+    List, 
+    Drawer, 
+    Avatar, 
+    Divider, 
+    Typography 
+} from 'material-ui';
 import { connect } from 'react-redux';
 import NavigationItem from '../../components/Navigation/NavigationItem/NavigationItem';
 import { withRouter } from 'react-router-dom';
@@ -42,7 +48,7 @@ class Sidebar extends Component {
                     className: classes.Paper
                 }}>
                     <Avatar className={classes.Avatar} src={DefaultAvatar} />
-                    <Typography variant="headline" className={classes.Username}>
+                    <Typography variant='headline' className={classes.Username}>
                         Giang
                     </Typography>
                     <Divider />
