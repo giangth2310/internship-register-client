@@ -1,11 +1,7 @@
 import * as actionTypes from './actionTypes';
 import Axios from 'axios';
 
-function parseJwt(token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
-};
+import { parseJwt } from '../../shared/utility';
 
 export const signinStart = () => {
     return {

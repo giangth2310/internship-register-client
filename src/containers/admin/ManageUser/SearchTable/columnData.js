@@ -31,8 +31,8 @@ export const columnData = {
             numberic: true
         },
         {
-            id: 'emailVNU',
-            label: 'Email VNU',
+            id: 'vnumail',
+            label: 'VNU Mail',
             numberic: false
         }
     ],

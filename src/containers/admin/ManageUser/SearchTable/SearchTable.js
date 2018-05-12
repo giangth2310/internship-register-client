@@ -12,6 +12,10 @@ import { columnData } from './columnData';
 import { Tooltip } from 'material-ui';
 import IconButton from 'material-ui/IconButton';
 import { Icon } from 'material-ui';
+import { connect } from 'react-redux';
+import { formatDate } from '../../../../shared/utility';
+import * as actions from '../../../../store/actions/index';
+import { withRouter } from 'react-router-dom';
 
 class SearchTable extends Component {
     state = {
@@ -22,6 +26,11 @@ class SearchTable extends Component {
         this.setState({
             data: this.props.data
         })
+    }
+
+    onEditProfileHandler = (user) => {
+        this.props.onEditProfile(user);
+        this.props.history.push('/dashboard/edit/' + this.props.userType + '/' + user.id);
     }
 
     render () {
@@ -50,7 +59,7 @@ class SearchTable extends Component {
                                 <TableRow key={user.id}>
                                     <TableCell className={classes.dense}>
                                         <Tooltip title='Edit'>
-                                            <IconButton>
+                                            <IconButton onClick={() => this.onEditProfileHandler(user)} >
                                                 <Icon>edit</Icon>
                                             </IconButton>
                                         </Tooltip>
@@ -87,8 +96,10 @@ class SearchTable extends Component {
     }
 }
 
-const formatDate = (date) => {
-    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+const mapDispatchToProps = dispatch => {
+    return {
+        onEditProfile: (user) => dispatch(actions.adminOpenEditProfile(user)) 
+    }
 }
 
-export default SearchTable;
+export default withRouter(connect(null, mapDispatchToProps)(SearchTable));

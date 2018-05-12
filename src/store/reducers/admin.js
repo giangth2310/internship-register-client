@@ -5,7 +5,8 @@ const initialState = {
     admin: null,
     student: null,
     lecturer: null,
-    partner: null
+    partner: null,
+    editingProfile: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +30,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...initialState
+            }
+        case actionTypes.ADMIN_OPEN_EDIT_PROFILE:
+            return {
+                ...state,
+                editingProfile: action.data
             }
         default:
             return state;

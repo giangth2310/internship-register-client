@@ -12,8 +12,27 @@ import NavigationItem from '../../components/Navigation/NavigationItem/Navigatio
 import { withRouter } from 'react-router-dom';
 import DefaultAvatar from '../../assets/images/default-avatar.png';
 import SidebarSpecification from './SidebarSpecification'; // Object chứa config sidebar cho từng actor
+import Axios from 'axios';
 
 class Sidebar extends Component {
+
+    state = {
+        avatarLink: DefaultAvatar,
+        displayName: ''
+    }
+
+    componentDidMount() {
+        Axios.get('/user/profile/avatar?id=' + localStorage.getItem('id'))
+            .then(response => {
+                this.setState({
+                    displayName: response.data.name,
+                    avatarLink: response.data.avatar
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
     render () {
 
@@ -47,9 +66,9 @@ class Sidebar extends Component {
                 PaperProps={{
                     className: classes.Paper
                 }}>
-                    <Avatar className={classes.Avatar} src={DefaultAvatar} />
+                    <Avatar className={classes.Avatar} src={this.state.avatarLink} />
                     <Typography variant='headline' className={classes.Username}>
-                        Giang
+                        {this.state.displayName}
                     </Typography>
                     <Divider />
                     <List component='nav' >

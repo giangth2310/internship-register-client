@@ -37,3 +37,10 @@ export const adminKnowError = () => {
         type: actionTypes.ADMIN_KNOW_ERROR
     }
 }
+
+export const adminOpenEditProfile = (user) => {
+    return {
+        type: actionTypes.ADMIN_OPEN_EDIT_PROFILE,
+        data: user
+    }
+}

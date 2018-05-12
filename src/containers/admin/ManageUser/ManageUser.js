@@ -17,18 +17,8 @@ class ManageUser extends Component {
         selectedTab: 'student', 
     }
 
-    componentWillMount() {
-        console.log(this.props);
-        if (this.props.match.path === '/dashboard') {
-            this.props.history.push('/dashboard/student');
-        }
-    }
-
     componentDidMount() {
         this.props.onLoadTabInfo(this.state.selectedTab); 
-        const userType = this.props.match.params.userType;
-        console.log(userType);
-        this.setState({selectedTab: userType});  
     }
 
     onTabChangeHandler = (event, value) => {

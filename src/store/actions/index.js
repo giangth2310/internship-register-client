@@ -6,5 +6,6 @@ export {
 
 export {
     loadAllInfo,
-    adminKnowError
+    adminKnowError,
+    adminOpenEditProfile
 } from './admin';

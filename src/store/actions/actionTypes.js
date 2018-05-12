@@ -9,4 +9,5 @@ export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
 // action của admin reducer
 export const LOAD_ALL_INFO_SUCCESS = 'LOAD_ALL_INFO_SUCCESS'; 
 export const LOAD_ALL_INFO_FAIL = 'LOAD_ALL_INFO_FAIL'; 
-export const ADMIN_KNOW_ERROR = 'ADMIN_KNOW_ERROR'
+export const ADMIN_KNOW_ERROR = 'ADMIN_KNOW_ERROR';
+export const ADMIN_OPEN_EDIT_PROFILE = 'ADMIN_OPEN_EDIT_PROFILE';

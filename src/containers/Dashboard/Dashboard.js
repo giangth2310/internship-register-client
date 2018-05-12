@@ -3,10 +3,11 @@ import classes from './Dashboard.css';
 import Sidebar from '../Sidebar/Sidebar';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import ManageUser from '../admin/ManageUser/ManageUser';
 import PageNotFound from '../../components/PageNotFound/PageNotFound'; 
 import DialogMessage from '../../components/DialogMessage/DialogMessage';
+import EditProfile from '../admin/ManageUser/EditProfile/EditProfile';
 
 class Dashboard extends Component {
     render () {
@@ -17,8 +18,8 @@ class Dashboard extends Component {
             case 'admin':
                 routes = (
                     <Switch>
-                        <Redirect exact from='/dashboard' to='/dashboard/student' />
-                        <Route path='/dashboard/:userType' component={ManageUser} />
+                        <Route path='/dashboard/edit/:userType/:id' component={EditProfile} />
+                        <Route path='/dashboard' component={ManageUser} />
                         <Route component={PageNotFound} />
                     </Switch>
                 );
