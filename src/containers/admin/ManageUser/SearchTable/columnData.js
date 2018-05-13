@@ -100,6 +100,26 @@ export const columnData = {
             id: 'name',
             label: 'Tên',
             numberic: false
+        },
+        {
+            id: 'donvi',
+            label: 'Đơn vị',
+            numberic: false
+        },
+        {
+            id: 'vnumail',
+            label: 'VNU Mail',
+            numberic: false
+        },
+        {
+            id: 'mail',
+            label: 'Mail',
+            numberic: false
+        },
+        {
+            id: 'phone',
+            label: 'Số điện thoại',
+            numberic: false
         }
     ]
 }

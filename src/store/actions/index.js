@@ -9,5 +9,6 @@ export {
     adminKnowError,
     adminOpenEditProfile,
     adminUpdateProfile,
-    adminKnowSuccess
+    adminKnowSuccess,
+    deleteUser
 } from './admin';

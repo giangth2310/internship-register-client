@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StudentProfile from '../../../student/Profile/Profile';
+import LecturerProfile from '../../../lecturer/Profile/Profile';
+import PartnerProfile from '../../../partner/Profile/Profile';
+import AdminProfile from '../../Profile/Profile';
 import * as actions from '../../../../store/actions/index';
 
 class EditProfile extends Component {
@@ -16,6 +19,45 @@ class EditProfile extends Component {
             case 'student':
                 editProfileForm = (
                     <StudentProfile 
+                        user={this.props.user} 
+                        onUpdate={this.props.onUpdate}
+                        onCancel={this.onCancel}
+                        error={this.props.error}
+                        onCloseErrorDialog={this.props.onCloseErrorDialog}
+                        success={this.props.updateSuccess}
+                        onCloseSuccessDialog={this.props.onCloseSuccessDialog}
+                         />
+                );
+                break;
+            case 'lecturer':
+                editProfileForm = (
+                    <LecturerProfile 
+                        user={this.props.user} 
+                        onUpdate={this.props.onUpdate}
+                        onCancel={this.onCancel}
+                        error={this.props.error}
+                        onCloseErrorDialog={this.props.onCloseErrorDialog}
+                        success={this.props.updateSuccess}
+                        onCloseSuccessDialog={this.props.onCloseSuccessDialog}
+                         />
+                );
+                break;
+            case 'partner':
+                editProfileForm = (
+                    <PartnerProfile 
+                        user={this.props.user} 
+                        onUpdate={this.props.onUpdate}
+                        onCancel={this.onCancel}
+                        error={this.props.error}
+                        onCloseErrorDialog={this.props.onCloseErrorDialog}
+                        success={this.props.updateSuccess}
+                        onCloseSuccessDialog={this.props.onCloseSuccessDialog}
+                         />
+                );
+                break;
+            case 'admin':
+                editProfileForm = (
+                    <AdminProfile 
                         user={this.props.user} 
                         onUpdate={this.props.onUpdate}
                         onCancel={this.onCancel}

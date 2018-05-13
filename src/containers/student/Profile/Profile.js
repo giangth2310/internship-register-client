@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { TextField, Card, CardContent, Button, Grid } from 'material-ui';
 import DefaultAvatar from '../../../assets/images/default-avatar.png';
 import Axios from 'axios';
-import classes from './Profile.css';
+import classes from '../../../shared/Profile.css';
 import DialogMessage from '../../../components/DialogMessage/DialogMessage';
 
 class Profile extends Component {

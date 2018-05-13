@@ -4,7 +4,8 @@ import {
     TableRow,
     TableHead,
     TableCell,
-    TableBody
+    TableBody,
+    Dialog
 } from 'material-ui';
 import { Paper } from 'material-ui';
 import classes from './SearchTable.css';
@@ -16,10 +17,15 @@ import { connect } from 'react-redux';
 import { formatDate } from '../../../../shared/utility';
 import * as actions from '../../../../store/actions/index';
 import { withRouter } from 'react-router-dom';
+import { DialogTitle } from 'material-ui';
+import { DialogActions } from 'material-ui';
+import { Button } from 'material-ui';
 
 class SearchTable extends Component {
     state = {
-        data: null
+        data: null,
+        showDeleteConfirmDialog: false,
+        userWillBeDelete: null
     }
 
     componentDidMount() {
@@ -31,6 +37,30 @@ class SearchTable extends Component {
     onEditProfileHandler = (user) => {
         this.props.onEditProfile(user);
         this.props.history.push('/dashboard/edit/' + this.props.userType + '/' + user.id);
+    }
+
+    openDeleteConfirmDialog = (user, index) => {
+        const userWillBeDelete = {
+            ...user,
+            userType: this.props.userType,
+            index: index
+        }
+        this.setState({
+            showDeleteConfirmDialog: true,
+            userWillBeDelete: userWillBeDelete
+        })
+    }
+
+    closeDeteleConfirmDialog = () => {
+        this.setState({
+            showDeleteConfirmDialog: false,
+            userWillBeDelete: null
+        })
+    }
+
+    onDeleteUserHandler = () => {
+        this.props.onDeleteUser(this.state.userWillBeDelete);
+        this.closeDeteleConfirmDialog();
     }
 
     render () {
@@ -54,7 +84,7 @@ class SearchTable extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map(user => {
+                        {data.map((user, index) => {
                             return (
                                 <TableRow key={user.id}>
                                     <TableCell className={classes.dense}>
@@ -64,7 +94,7 @@ class SearchTable extends Component {
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title='Delete'>
-                                            <IconButton>
+                                            <IconButton onClick={() => this.openDeleteConfirmDialog(user, index)}>
                                                 <Icon>delete</Icon>
                                             </IconButton>
                                         </Tooltip>
@@ -91,6 +121,19 @@ class SearchTable extends Component {
                         })}
                     </TableBody>
                 </Table>
+                <Dialog 
+                    open={this.state.showDeleteConfirmDialog}
+                    onClose={this.closeDeteleConfirmDialog} >
+                    <DialogTitle>
+                        Bạn muốn xóa người dùng này?
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button 
+                            color='secondary' 
+                            onClick={this.onDeleteUserHandler} >OK</Button>
+                        <Button onClick={this.closeDeteleConfirmDialog} >Hủy</Button>
+                    </DialogActions>
+                </Dialog>
             </Paper>
         );
     }
@@ -98,7 +141,8 @@ class SearchTable extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onEditProfile: (user) => dispatch(actions.adminOpenEditProfile(user)) 
+        onEditProfile: (user) => dispatch(actions.adminOpenEditProfile(user)),
+        onDeleteUser: (user) => dispatch(actions.deleteUser(user))
     }
 }
 

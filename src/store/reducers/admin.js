@@ -58,6 +58,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 updateProfileSuccess: false
             }
+        case actionTypes.DELETE_USER_SUCCESS:
+            const { index, type } = action.data
+            return {
+                ...state,
+                [type]: state[type].splice(index, 1)
+            }
         default:
             return state;
     }

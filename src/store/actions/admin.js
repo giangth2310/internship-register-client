@@ -80,3 +80,25 @@ export const adminKnowSuccess = () => {
         type: actionTypes.ADMIN_KNOW_SUCCESS
     }
 }
+
+export const deleteUserSuccess = (type, index) => {
+    return {
+        type: actionTypes.DELETE_USER_SUCCESS,
+        data: {
+            type: type,
+            index: index
+        }
+    }
+}
+
+export const deleteUser = (user) => {
+    return dispatch => {
+        Axios.delete('/user/profile/delete/' + user.id)
+            .then(response => {
+                dispatch(deleteUserSuccess(user.userType, user.index));
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+}
