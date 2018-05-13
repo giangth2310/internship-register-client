@@ -12,7 +12,7 @@ import EditProfile from '../admin/ManageUser/EditProfile/EditProfile';
 class Dashboard extends Component {
     render () {
 
-        let routes;
+        let routes = null;
 
         switch (localStorage.getItem('userType')) {
             case 'admin':
@@ -24,6 +24,8 @@ class Dashboard extends Component {
                     </Switch>
                 );
                 break;
+            default:
+                routes = null;
         }
 
         return (

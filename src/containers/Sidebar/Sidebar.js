@@ -24,9 +24,10 @@ class Sidebar extends Component {
     componentDidMount() {
         Axios.get('/user/profile/avatar?id=' + localStorage.getItem('id'))
             .then(response => {
+                console.log(response);
                 this.setState({
                     displayName: response.data.name,
-                    avatarLink: response.data.avatar
+                    avatarLink: response.data.avatar || DefaultAvatar
                 });
             })
             .catch(error => {

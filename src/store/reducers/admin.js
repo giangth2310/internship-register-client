@@ -6,7 +6,9 @@ const initialState = {
     student: null,
     lecturer: null,
     partner: null,
-    editingProfile: null
+    editingProfile: null,
+    updateProfileError: null,
+    updateProfileSuccess: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -24,7 +26,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADMIN_KNOW_ERROR:
             return {
                 ...state,
-                error: null
+                error: null,
+                updateProfileError: null
             }
         case actionTypes.SIGN_OUT:
             return {
@@ -34,7 +37,26 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADMIN_OPEN_EDIT_PROFILE:
             return {
                 ...state,
-                editingProfile: action.data
+                editingProfile: action.data,
+                updateProfileError: null,
+                updateProfileSuccess: false
+            }
+        case actionTypes.ADMIN_UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                updateProfileError: null,
+                updateProfileSuccess: true
+            }
+        case actionTypes.ADMIN_UPDATE_PROFILE_ERROR:
+            return {
+                ...state,
+                updateProfileError: action.error,
+                updateProfileSuccess: false
+            }
+        case actionTypes.ADMIN_KNOW_SUCCESS:
+            return {
+                ...state,
+                updateProfileSuccess: false
             }
         default:
             return state;

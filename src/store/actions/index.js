@@ -7,5 +7,7 @@ export {
 export {
     loadAllInfo,
     adminKnowError,
-    adminOpenEditProfile
+    adminOpenEditProfile,
+    adminUpdateProfile,
+    adminKnowSuccess
 } from './admin';

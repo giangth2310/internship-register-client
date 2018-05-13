@@ -44,3 +44,39 @@ export const adminOpenEditProfile = (user) => {
         data: user
     }
 }
+
+export const adminUpdateProfile = (profile) => {
+    return dispatch => {
+        Axios.put('/user/profile/update/' + profile.id, profile)
+            .then(response => {
+                console.log(response);
+                if (response.data.success) {
+                    dispatch(adminUpdateProfileSuccess())
+                } else {
+                    dispatch(adminUpdateProfileError(response.data.error));
+                }
+            })
+            .catch(error => {
+                dispatch(adminUpdateProfileError(error));
+            })
+    }
+}
+
+export const adminUpdateProfileSuccess = () => {
+    return {
+        type: actionTypes.ADMIN_UPDATE_PROFILE_SUCCESS
+    }
+}
+
+export const adminUpdateProfileError = (error) => {
+    return {
+        type: actionTypes.ADMIN_UPDATE_PROFILE_ERROR,
+        error: error
+    }
+}
+
+export const adminKnowSuccess = () => {
+    return {
+        type: actionTypes.ADMIN_KNOW_SUCCESS
+    }
+}
