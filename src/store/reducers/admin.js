@@ -8,7 +8,8 @@ const initialState = {
     partner: null,
     editingProfile: null,
     updateProfileError: null,
-    updateProfileSuccess: false
+    updateProfileSuccess: false,
+    redirectPath: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -65,6 +66,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 [type]: newArray
+            }
+        case actionTypes.CHANGE_ADMIN_REDIRECT_PATH:
+            return {
+                ...state,
+                redirectPath: action.data
             }
         default:
             return state;

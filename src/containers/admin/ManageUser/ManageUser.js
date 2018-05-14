@@ -10,11 +10,14 @@ import DialogMessage from '../../../components/DialogMessage/DialogMessage';
 import SearchTable from './SearchTable/SearchTable';
 import { Button } from 'material-ui';
 import classes from './ManageUser.css';
+import CreateUser from './CreateUser/CreateUser';
+import { Redirect } from 'react-router-dom';
 
 class ManageUser extends Component {
 
     state = {
         selectedTab: 'student', 
+        showCreateUserForm: false        
     }
 
     componentDidMount() {
@@ -28,9 +31,26 @@ class ManageUser extends Component {
         });
     }
 
+    openCreateUserForm = () => {
+        this.setState({
+            showCreateUserForm: true
+        });
+    }
+
+    closeCreateUserForm = () => {
+        this.setState({
+            showCreateUserForm: false
+        });
+    }
+
+    onCreateUser = (user) => {
+        this.props.onCreateUser(user);
+    }
+
     render () {
         return (
             <Fragment>
+                {this.props.redirectPath ? <Redirect to={this.props.redirectPath} /> : null}
                 <Paper className={classes.Tabbar}>
                     <Tabs 
                         value={this.state.selectedTab} 
@@ -40,7 +60,7 @@ class ManageUser extends Component {
                         <Tab value='partner' label='Đối tác' />
                         <Tab value='admin' label='Quản trị viên' />
                     </Tabs>
-                    <Button color='primary' variant='raised' >
+                    <Button color='primary' variant='raised' onClick={this.openCreateUserForm} >
                         Thêm tài khoản
                     </Button>
                 </Paper>
@@ -57,6 +77,10 @@ class ManageUser extends Component {
                     onClose={this.props.onCloseErrorDialog}
                     title='Có lỗi xảy ra :('
                     content='Không tải được dữ liệu' />
+                <CreateUser 
+                    open={this.state.showCreateUserForm}
+                    onClose={this.closeCreateUserForm}
+                    onCreateUser={this.onCreateUser} />
             </Fragment>
         );
     }
@@ -68,14 +92,17 @@ const mapStateToProps = state => {
         lecturer: state.admin.lecturer,
         partner: state.admin.partner,
         admin: state.admin.admin,
-        error: state.admin.error
+        error: state.admin.error,
+        redirectPath: state.admin.redirectPath
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onLoadTabInfo: (userType) => dispatch(actions.loadAllInfo(userType)),
-        onCloseErrorDialog: () => dispatch(actions.adminKnowError())
+        onCloseErrorDialog: () => dispatch(actions.adminKnowError()),
+        onCreateUser: (user) => dispatch(actions.createUser(user)),
+        onChangeRedirectPath: (path) => dispatch(actions.changeRedirectPath(path))
     }
 }
 

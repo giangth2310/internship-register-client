@@ -8,8 +8,12 @@ import * as actions from '../../../../store/actions/index';
 
 class EditProfile extends Component {
 
+    componentDidMount() {
+        this.props.onResetRedirectPath();
+    }
+
     onCancel = () => {
-        this.props.history.goBack();
+        this.props.history.push('/dashboard');
     }
 
     render () {
@@ -87,7 +91,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onUpdate: (profile) => dispatch(actions.adminUpdateProfile(profile)),
         onCloseErrorDialog: () => dispatch(actions.adminKnowError()),
-        onCloseSuccessDialog: () => dispatch(actions.adminKnowSuccess())
+        onCloseSuccessDialog: () => dispatch(actions.adminKnowSuccess()),
+        onResetRedirectPath: () => dispatch(actions.changeRedirectPath(''))
     }
 }
 

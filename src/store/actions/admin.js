@@ -102,3 +102,30 @@ export const deleteUser = (user) => {
             })
     }
 }
+
+export const createUser = (user) => {
+    return dispatch => {
+        Axios.post('/admin/createUser', user)
+            .then(response => {
+                console.log(response);
+                dispatch(createUserSuccess(response.data.id, response.data.type));
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+}
+
+export const createUserSuccess = (id, type) => {
+    return dispatch => {
+        dispatch(adminOpenEditProfile({id: id}));
+        dispatch(changeRedirectPath('/dashboard/edit/' + type + '/' + id));
+    }
+}
+
+export const changeRedirectPath = (path) => {
+    return {
+        type: actionTypes.CHANGE_ADMIN_REDIRECT_PATH,
+        data: path
+    }
+}

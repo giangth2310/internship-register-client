@@ -10,5 +10,7 @@ export {
     adminOpenEditProfile,
     adminUpdateProfile,
     adminKnowSuccess,
-    deleteUser
+    deleteUser,
+    createUser,
+    changeRedirectPath
 } from './admin';

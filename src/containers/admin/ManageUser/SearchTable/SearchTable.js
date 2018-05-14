@@ -25,7 +25,7 @@ class SearchTable extends Component {
     state = {
         data: null,
         showDeleteConfirmDialog: false,
-        userWillBeDelete: null
+        userWillBeDelete: null,
     }
 
     componentDidMount() {
