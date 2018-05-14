@@ -12,7 +12,9 @@ class Profile extends Component {
         password: '',
         newPassword: '',
         validateNewPassword: '',
-        avatar: DefaultAvatar
+        avatar: DefaultAvatar,
+        error: null,
+        changePasswordSuccess: false
     }
     
     componentWillMount() {
@@ -47,7 +49,41 @@ class Profile extends Component {
         delete profile.password;
         delete profile.newPassword;
         delete profile.validateNewPassword;
+        delete profile.changePasswordSuccess;
+        delete profile.error;
         this.props.onUpdate(profile);
+    }
+
+    onChangePasswordHandler = () => {
+        const passwordFormData = {
+            password: this.state.password,
+            newPassword: this.state.newPassword,
+            validateNewPassword: this.state.validateNewPassword
+        }
+        Axios.put('/user/changePassword/' + this.state.id, passwordFormData)
+            .then(response => {
+                if (response.data.success) {
+                    this.setState({
+                        changePasswordSuccess: true,
+                        error: null
+                    })
+                } else {
+                    this.setState({
+                        changePasswordSuccess: false,
+                        error: response.data.error
+                    })
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    onClosePasswordDialog = () => {
+        this.setState({
+            changePasswordSuccess: false,
+            error: null
+        })
     }
 
     render () {
@@ -67,7 +103,7 @@ class Profile extends Component {
                                 <TextField
                                     id='newPassword'
                                     label='Mật khẩu mới'
-                                    value={this.state.password}
+                                    value={this.state.newPassword}
                                     fullWidth
                                     className={classes.marginTop}
                                     onChange={this.onInputChangeHandler} />
@@ -81,13 +117,16 @@ class Profile extends Component {
                                 <Button 
                                     variant='raised' 
                                     color='primary'
-                                    className={classes.marginTop} >Thay đổi</Button>
+                                    className={classes.marginTop} 
+                                    onClick={this.onChangePasswordHandler} >Thay đổi</Button>
                             </CardContent>
                         </Card>
                     </Grid>
                     <Grid item xs>
                         <div className={classes.avatarForm}>
-                            <img src={this.state.avatar} className={classes.avatar} alt='avatar' />
+                            <div className={classes.avatarContainer}>
+                                <img src={this.state.avatar} className={classes.avatar} alt='avatar' />
+                            </div>
                             <Button color='primary' >Thay đổi ảnh đại diện</Button>
                         </div>
                     </Grid>
@@ -292,6 +331,15 @@ class Profile extends Component {
                     open={this.props.success} 
                     onClose={this.props.onCloseSuccessDialog}
                     title='Cập nhật thành công' />
+                 <DialogMessage 
+                    open={this.state.error ? true : false} 
+                    onClose={this.onClosePasswordDialog}
+                    title='Có lỗi xảy ra :('
+                    content={this.state.error} />
+                <DialogMessage 
+                    open={this.state.changePasswordSuccess} 
+                    onClose={this.onClosePasswordDialog}
+                    title='Cập nhật mật khẩu thành công' />
             </div>
         );
     }
