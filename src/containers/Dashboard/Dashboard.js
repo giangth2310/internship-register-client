@@ -8,6 +8,7 @@ import ManageUser from '../admin/ManageUser/ManageUser';
 import PageNotFound from '../../components/PageNotFound/PageNotFound'; 
 import DialogMessage from '../../components/DialogMessage/DialogMessage';
 import EditProfile from '../admin/ManageUser/EditProfile/EditProfile';
+import UpdateProfile from '../UpdateProfile/UpdateProfile';
 
 class Dashboard extends Component {
     render () {
@@ -18,8 +19,33 @@ class Dashboard extends Component {
             case 'admin':
                 routes = (
                     <Switch>
+                        <Route path='/profile' component={UpdateProfile} />
                         <Route path='/dashboard/edit/:userType/:id' component={EditProfile} />
                         <Route path='/dashboard' component={ManageUser} />
+                        <Route component={PageNotFound} />
+                    </Switch>
+                );
+                break;
+            case 'student':
+                routes = (
+                    <Switch>
+                        <Route path='/profile' component={UpdateProfile} />
+                        <Route component={PageNotFound} />
+                    </Switch>
+                );
+                break;
+            case 'lecturer':
+                routes = (
+                    <Switch>
+                        <Route path='/profile' component={UpdateProfile} />
+                        <Route component={PageNotFound} />
+                    </Switch>
+                );
+                break;
+            case 'partner':
+                routes = (
+                    <Switch>
+                        <Route path='/profile' component={UpdateProfile} />
                         <Route component={PageNotFound} />
                     </Switch>
                 );

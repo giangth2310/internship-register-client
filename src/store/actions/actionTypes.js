@@ -5,6 +5,7 @@ export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
 
 export const SIGN_OUT = 'SIGN_OUT';
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
+export const LOAD_AVATAR_SUCCESS = 'LOAD_AVATAR_SUCCESS'
 
 // action của admin reducer
 export const LOAD_ALL_INFO_SUCCESS = 'LOAD_ALL_INFO_SUCCESS'; 

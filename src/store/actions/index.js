@@ -1,7 +1,8 @@
 export {
     signin,
     signout,
-    tryAutoSignIn
+    tryAutoSignIn,
+    loadAvatar
 } from './signin';
 
 export {

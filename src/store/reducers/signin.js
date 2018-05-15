@@ -6,7 +6,9 @@ const initialState = {
     isTokenExpired: false,
     userType: null,
     error: null,
-    id: null
+    id: null,
+    avatar: null,
+    displayName: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +44,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isTokenExpired: true
+            }
+        case actionTypes.LOAD_AVATAR_SUCCESS:
+            return {
+                ...state,
+                avatar: action.data.path,
+                displayName: action.data.displayName
             }
         default:
             return state;

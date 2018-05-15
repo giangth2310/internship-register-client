@@ -12,27 +12,12 @@ import NavigationItem from '../../components/Navigation/NavigationItem/Navigatio
 import { withRouter } from 'react-router-dom';
 import DefaultAvatar from '../../assets/images/default-avatar.png';
 import SidebarSpecification from './SidebarSpecification'; // Object chứa config sidebar cho từng actor
-import Axios from 'axios';
+import * as actions from '../../store/actions/index';
 
 class Sidebar extends Component {
 
-    state = {
-        avatarLink: DefaultAvatar,
-        displayName: ''
-    }
-
     componentDidMount() {
-        Axios.get('/user/profile/avatar?id=' + localStorage.getItem('id'))
-            .then(response => {
-                console.log(response);
-                this.setState({
-                    displayName: response.data.name,
-                    avatarLink: response.data.avatar || DefaultAvatar
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        this.props.onLoadAvatar();
     }
 
     render () {
@@ -67,9 +52,9 @@ class Sidebar extends Component {
                 PaperProps={{
                     className: classes.Paper
                 }}>
-                    <Avatar className={classes.Avatar} src={this.state.avatarLink} />
+                    <Avatar className={classes.Avatar} src={this.props.avatar || DefaultAvatar} />
                     <Typography variant='headline' className={classes.Username}>
-                        {this.state.displayName}
+                        {this.props.displayName}
                     </Typography>
                     <Divider />
                     <List component='nav' >
@@ -84,8 +69,16 @@ class Sidebar extends Component {
 
 const mapStateToProps = state => {
     return {
-        userType: state.signin.userType
+        userType: state.signin.userType,
+        avatar: state.signin.avatar,
+        displayName: state.signin.displayName
     }
 }
 
-export default withRouter(connect(mapStateToProps)(Sidebar));
+const mapDispatchToProps = dispatch => {
+    return {
+        onLoadAvatar: () => dispatch(actions.loadAvatar())
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar));

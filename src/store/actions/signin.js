@@ -108,3 +108,25 @@ export const tryAutoSignIn = () => {
         } 
     }
 }
+
+export const loadAvatar = () => {
+    return dispatch => {
+        Axios.get('/user/profile/avatar?id=' + localStorage.getItem('id'))
+            .then(response => {
+                dispatch(loadAvatarSuccess(response.data.avatar, response.data.name));
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+}
+
+export const loadAvatarSuccess = (path, displayName) => {
+    return {
+        type: actionTypes.LOAD_AVATAR_SUCCESS,
+        data: {
+            path: path,
+            displayName: displayName
+        }
+    }
+}

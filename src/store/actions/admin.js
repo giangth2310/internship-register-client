@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import Axios from 'axios';
 
+// Load Dashboard cho admin
 export const loadAllInfoSuccess = (data, userType) => {
     return {
         type: actionTypes.LOAD_ALL_INFO_SUCCESS,
@@ -32,12 +33,14 @@ export const loadAllInfo = (userType) => {
     }
 }
 
+// tắt các thông báo lỗi
 export const adminKnowError = () => {
     return {
         type: actionTypes.ADMIN_KNOW_ERROR
     }
 }
 
+// admin CRUD tài khoản
 export const adminOpenEditProfile = (user) => {
     return {
         type: actionTypes.ADMIN_OPEN_EDIT_PROFILE,
@@ -49,7 +52,6 @@ export const adminUpdateProfile = (profile) => {
     return dispatch => {
         Axios.put('/user/profile/update/' + profile.id, profile)
             .then(response => {
-                console.log(response);
                 if (response.data.success) {
                     dispatch(adminUpdateProfileSuccess())
                 } else {
