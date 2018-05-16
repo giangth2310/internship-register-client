@@ -7,6 +7,8 @@ import AdminProfile from '../admin/Profile/Profile';
 import StudentProfile from '../student/Profile/Profile';
 import LecturerProfile from '../lecturer/Profile/Profile';
 import PartnerProfile from '../partner/Profile/Profile';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class UpdateProfile extends Component {
 
@@ -77,6 +79,10 @@ class UpdateProfile extends Component {
         })
     }
 
+    onUpdateAvatar = (path) => {
+
+    }
+
     render () {
         let updateProfile = <CircularProgress size={100} className={classes.centerScreen} />;
         if (this.state.user) {
@@ -89,7 +95,8 @@ class UpdateProfile extends Component {
                                 error={this.state.error}
                                 onCloseErrorDialog={this.onCloseErrorDialog}
                                 success={this.state.updateSuccess}
-                                onCloseSuccessDialog={this.onCloseSuccessDialog} />; 
+                                onCloseSuccessDialog={this.onCloseSuccessDialog}
+                                updateAvatar={this.props.onUpdateAvatar}  />; 
                     break;
                 case 'lecturer': 
                     updateProfile = <LecturerProfile 
@@ -99,7 +106,8 @@ class UpdateProfile extends Component {
                                 error={this.state.error}
                                 onCloseErrorDialog={this.onCloseErrorDialog}
                                 success={this.state.updateSuccess}
-                                onCloseSuccessDialog={this.onCloseSuccessDialog} />; 
+                                onCloseSuccessDialog={this.onCloseSuccessDialog}
+                                updateAvatar={this.props.onUpdateAvatar}  />; 
                     break;
                 case 'partner': 
                     updateProfile = <PartnerProfile 
@@ -109,7 +117,8 @@ class UpdateProfile extends Component {
                                 error={this.state.error}
                                 onCloseErrorDialog={this.onCloseErrorDialog}
                                 success={this.state.updateSuccess}
-                                onCloseSuccessDialog={this.onCloseSuccessDialog} />; 
+                                onCloseSuccessDialog={this.onCloseSuccessDialog}
+                                updateAvatar={this.props.onUpdateAvatar}  />; 
                     break;
                 case 'admin': 
                     updateProfile = <AdminProfile 
@@ -119,7 +128,8 @@ class UpdateProfile extends Component {
                                 error={this.state.error}
                                 onCloseErrorDialog={this.onCloseErrorDialog}
                                 success={this.state.updateSuccess}
-                                onCloseSuccessDialog={this.onCloseSuccessDialog} />; 
+                                onCloseSuccessDialog={this.onCloseSuccessDialog}
+                                updateAvatar={this.props.onUpdateAvatar} />; 
                     break;
             }
         }
@@ -127,4 +137,10 @@ class UpdateProfile extends Component {
     }
 }
 
-export default UpdateProfile;
+const mapDispatchToProps = dispatch => {
+    return {
+        onUpdateAvatar: () => dispatch(actions.loadAvatar())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(UpdateProfile);

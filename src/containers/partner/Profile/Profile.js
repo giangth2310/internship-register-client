@@ -86,6 +86,26 @@ class Profile extends Component {
         })
     }
 
+    onFileSelectedHandler = (event) => {
+        const selectedFile = event.target.files[0];
+        const formData = new FormData();
+        formData.append('avatarImg', selectedFile, selectedFile.name);
+        Axios.put('/user/profile/' + this.state.id + '/avatar', formData)
+            .then(response => {
+                if (response.data.success) {
+                    this.setState({
+                        avatar: response.data.avatar
+                    });
+                    if (!this.props.admin) {
+                        this.props.updateAvatar();
+                    }
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     render () {
         return (
             <div className={classes.Profile}>
@@ -99,7 +119,8 @@ class Profile extends Component {
                                     value={this.state.password}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={this.props.admin} />
                                 <TextField
                                     id='newPassword'
                                     label='Mật khẩu mới'
@@ -127,7 +148,12 @@ class Profile extends Component {
                             <div className={classes.avatarContainer}>
                                 <img src={this.state.avatar} className={classes.avatar} alt='avatar' />
                             </div>
-                            <Button color='primary' >Thay đổi ảnh đại diện</Button>
+                            <input 
+                                style={{display: 'none'}} 
+                                type='file' 
+                                onChange={this.onFileSelectedHandler}
+                                ref={fileInput => this.fileInput = fileInput} />
+                            <Button color='primary' onClick={() => this.fileInput.click()} >Thay đổi ảnh đại diện</Button>
                         </div>
                     </Grid>
                 </Grid>

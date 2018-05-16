@@ -86,6 +86,26 @@ class Profile extends Component {
         })
     }
 
+    onFileSelectedHandler = (event) => {
+        const selectedFile = event.target.files[0];
+        const formData = new FormData();
+        formData.append('avatarImg', selectedFile, selectedFile.name);
+        Axios.put('/user/profile/' + this.state.id + '/avatar', formData)
+            .then(response => {
+                if (response.data.success) {
+                    this.setState({
+                        avatar: response.data.avatar
+                    });
+                    if (!this.props.admin) {
+                        this.props.updateAvatar();
+                    }
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     render () {
         return (
             <div className={classes.Profile}>
@@ -99,7 +119,8 @@ class Profile extends Component {
                                     value={this.state.password}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={this.props.admin} />
                                 <TextField
                                     id='newPassword'
                                     label='Mật khẩu mới'
@@ -127,7 +148,12 @@ class Profile extends Component {
                             <div className={classes.avatarContainer}>
                                 <img src={this.state.avatar} className={classes.avatar} alt='avatar' />
                             </div>
-                            <Button color='primary' >Thay đổi ảnh đại diện</Button>
+                            <input 
+                                style={{display: 'none'}} 
+                                type='file' 
+                                onChange={this.onFileSelectedHandler}
+                                ref={fileInput => this.fileInput = fileInput} />
+                            <Button color='primary' onClick={() => this.fileInput.click()} >Thay đổi ảnh đại diện</Button>
                         </div>
                     </Grid>
                 </Grid>
@@ -141,77 +167,88 @@ class Profile extends Component {
                                     value={this.state.name || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                                 <TextField
                                     id='mssv'
                                     label='Mã sinh viên'
                                     value={this.state.mssv || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
-                                <TextField
-                                    id='class'
-                                    label='Lớp'
-                                    value={this.state.class || ''}
-                                    fullWidth
-                                    className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
-                                <TextField
-                                    id='khoa'
-                                    label='Khóa'
-                                    value={this.state.khoa || ''}
-                                    fullWidth
-                                    className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
-                                <TextField
-                                    id='nganh'
-                                    label='Ngành'
-                                    value={this.state.nganh || ''}
-                                    fullWidth
-                                    className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
-                                <TextField
-                                    id='diachi'
-                                    label='Địa chỉ'
-                                    value={this.state.diachi || ''}
-                                    fullWidth
-                                    className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                                 <TextField
                                     id='ngaysinh'
                                     label='Ngày sinh'
                                     value={this.state.ngaysinh || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
+                                <TextField
+                                    id='class'
+                                    label='Lớp'
+                                    value={this.state.class || ''}
+                                    fullWidth
+                                    className={classes.marginTop}
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
+                                <TextField
+                                    id='khoa'
+                                    label='Khóa'
+                                    value={this.state.khoa || ''}
+                                    fullWidth
+                                    className={classes.marginTop}
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
+                                <TextField
+                                    id='nganh'
+                                    label='Ngành'
+                                    value={this.state.nganh || ''}
+                                    fullWidth
+                                    className={classes.marginTop}
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
+                                <TextField
+                                    id='diachi'
+                                    label='Địa chỉ'
+                                    value={this.state.diachi || ''}
+                                    fullWidth
+                                    className={classes.marginTop}
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                                 <TextField
                                     id='vnumail'
                                     label='VNU Mail'
                                     value={this.state.vnumail || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                                 <TextField
                                     id='GPA'
                                     label='GPA'
                                     value={this.state.GPA || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                                 <TextField
                                     id='namtotnghiep'
                                     label='Năm tốt nghiệp'
                                     value={this.state.namtotnghiep || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                                 <TextField
                                     id='vitri'
                                     label='Vị trí cán bộ'
                                     value={this.state.vitri || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                             </CardContent>
                         </Card>
                     </Grid>
@@ -224,7 +261,8 @@ class Profile extends Component {
                                     value={this.state.email || ''}
                                     fullWidth
                                     className={classes.marginTop}
-                                    onChange={this.onInputChangeHandler} />
+                                    onChange={this.onInputChangeHandler}
+                                    disabled={!this.props.admin} />
                                 <TextField
                                     id='skypeID'
                                     label='Skype ID'

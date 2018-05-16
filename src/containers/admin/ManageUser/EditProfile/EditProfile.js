@@ -30,6 +30,7 @@ class EditProfile extends Component {
                         onCloseErrorDialog={this.props.onCloseErrorDialog}
                         success={this.props.updateSuccess}
                         onCloseSuccessDialog={this.props.onCloseSuccessDialog}
+                        admin
                          />
                 );
                 break;
@@ -43,6 +44,7 @@ class EditProfile extends Component {
                         onCloseErrorDialog={this.props.onCloseErrorDialog}
                         success={this.props.updateSuccess}
                         onCloseSuccessDialog={this.props.onCloseSuccessDialog}
+                        admin
                          />
                 );
                 break;
@@ -56,6 +58,7 @@ class EditProfile extends Component {
                         onCloseErrorDialog={this.props.onCloseErrorDialog}
                         success={this.props.updateSuccess}
                         onCloseSuccessDialog={this.props.onCloseSuccessDialog}
+                        admin
                          />
                 );
                 break;
@@ -69,6 +72,7 @@ class EditProfile extends Component {
                         onCloseErrorDialog={this.props.onCloseErrorDialog}
                         success={this.props.updateSuccess}
                         onCloseSuccessDialog={this.props.onCloseSuccessDialog}
+                        admin
                          />
                 );
                 break;
