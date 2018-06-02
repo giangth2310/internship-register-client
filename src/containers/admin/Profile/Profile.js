@@ -88,6 +88,7 @@ class Profile extends Component {
 
     onFileSelectedHandler = (event) => {
         const selectedFile = event.target.files[0];
+        if (selectedFile === undefined) return;
         const formData = new FormData();
         formData.append('avatarImg', selectedFile, selectedFile.name);
         Axios.put('/user/profile/' + this.state.id + '/avatar', formData)

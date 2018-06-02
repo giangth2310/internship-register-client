@@ -79,10 +79,6 @@ class UpdateProfile extends Component {
         })
     }
 
-    onUpdateAvatar = (path) => {
-
-    }
-
     render () {
         let updateProfile = <CircularProgress size={100} className={classes.centerScreen} />;
         if (this.state.user) {
