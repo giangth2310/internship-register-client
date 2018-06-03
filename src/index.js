@@ -11,6 +11,7 @@ import registerServiceWorker from './registerServiceWorker';
 import Axios from 'axios';
 import signinReducer from './store/reducers/signin';
 import adminReducer from './store/reducers/admin';
+import partnerReducer from './store/reducers/partner';
 
 Axios.defaults.baseURL = 'http://localhost:3000/api';
 
@@ -18,7 +19,8 @@ const composeEnhancers = process.env.NODE_ENV === 'development' && window.__REDU
                             window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__: compose;
 const rootReducer = combineReducers({
     signin: signinReducer,
-    admin: adminReducer
+    admin: adminReducer,
+    partner: partnerReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

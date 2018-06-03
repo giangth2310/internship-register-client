@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Paper, TextField, Button } from 'material-ui';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState } from 'draft-js';
+import {
+    EditorState,
+    convertToRaw
+} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 
 import classes from './CreateForm.css';
 
@@ -17,6 +21,18 @@ class CreateForm extends Component {
             editorState,
         });
     };
+
+    onUploadHandler = () => {
+        const { title, editorState } = this.state;
+        const content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+        this.props.onUpload(title, content);
+    }
+
+    onTitleChange = (event) => {
+        this.setState({
+            title: event.target.value
+        })
+    }
 
     render () {
         return (
@@ -36,6 +52,7 @@ class CreateForm extends Component {
                         className: classes.label
                     }}
                     fullWidth
+                    onChange={this.onTitleChange}
                 />
                 <Paper>
                     <div className={classes.Editor}>
@@ -49,7 +66,7 @@ class CreateForm extends Component {
                     </div>
                 </Paper>
                 <div className={classes.FormFooter}>
-                <Button variant='raised' color='primary' >Đăng</Button>
+                <Button variant='raised' color='primary' onClick={this.onUploadHandler} >Đăng</Button>
                 </div>
             </div>
         );

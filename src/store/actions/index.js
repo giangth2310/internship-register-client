@@ -15,3 +15,7 @@ export {
     createUser,
     changeRedirectPath
 } from './admin';
+
+export {
+    createEmployInfo
+} from './partner';
