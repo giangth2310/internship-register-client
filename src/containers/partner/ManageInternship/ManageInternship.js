@@ -18,16 +18,30 @@ class ManageInternship extends Component {
                         <Tab value='Create' label='Tạo tin thực tập' />
                     </Tabs>
                 </Paper>
-                {this.state.selectedTab === 'Create' ? <CreateForm onUpload={this.props.onCreateEmployInfo} /> : null}
+                {this.state.selectedTab === 'Create' ? 
+                    <CreateForm 
+                        onUpload={this.props.onCreateEmployInfo} 
+                        success={this.props.createEmployInfoSuccess}
+                        error={this.props.error}
+                        onCloseDialog={this.props.onCloseDialog}
+                        /> : null}
             </Fragment>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
     return {
-        onCreateEmployInfo: (title, content) => dispatch(actions.createEmployInfo(title, content))
+        error: state.partner.error,
+        createEmployInfoSuccess: state.partner.createEmployInfoSuccess
     }
 }
 
-export default connect(null, mapDispatchToProps)(ManageInternship);
+const mapDispatchToProps = dispatch => {
+    return {
+        onCreateEmployInfo: (title, content) => dispatch(actions.createEmployInfo(title, content)),
+        onCloseDialog: () => dispatch(actions.partnerCloseDialog())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageInternship);

@@ -17,5 +17,6 @@ export {
 } from './admin';
 
 export {
-    createEmployInfo
+    createEmployInfo,
+    partnerCloseDialog
 } from './partner';

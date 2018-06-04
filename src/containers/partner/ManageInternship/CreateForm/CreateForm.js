@@ -6,7 +6,7 @@ import {
     convertToRaw
 } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-
+import DialogMessage from '../../../../components/DialogMessage/DialogMessage';
 import classes from './CreateForm.css';
 
 class CreateForm extends Component {
@@ -66,8 +66,17 @@ class CreateForm extends Component {
                     </div>
                 </Paper>
                 <div className={classes.FormFooter}>
-                <Button variant='raised' color='primary' onClick={this.onUploadHandler} >Đăng</Button>
+                    <Button variant='raised' color='primary' onClick={this.onUploadHandler} >Đăng</Button>
                 </div>
+                <DialogMessage 
+                    open={this.props.error ? true : false} 
+                    onClose={this.props.onCloseDialog}
+                    title='Có lỗi xảy ra :('
+                    content={this.props.error} />
+                <DialogMessage 
+                    open={this.props.success ? true : false} 
+                    onClose={this.props.onCloseDialog}
+                    title='Đăng thành công' />
             </div>
         );
     }

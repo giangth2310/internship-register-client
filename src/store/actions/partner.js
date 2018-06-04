@@ -7,13 +7,35 @@ export const createEmployInfo = (title, content) => {
             title: title,
             content: content
         }
-        console.log(employInfo);
         Axios.post('/employInfo/create', employInfo)
             .then(response => {
-                console.log(response);
+                if (response.data.success) {
+                    dispatch(createEmployInfoSuccess());
+                } else {
+                    dispatch(createEmployInfoFail(response.data.error));
+                }
             })
             .catch(error => {
-                console.log(error);
+                dispatch(createEmployInfoFail(error));                
             })
+    }
+}
+
+export const createEmployInfoFail = (error) => {
+    return {
+        type: actionTypes.CREATE_EMPLOY_INFO_FAIL,
+        error: error
+    }
+}
+
+export const createEmployInfoSuccess = () => {
+    return {
+        type: actionTypes.CREATE_EMPLOY_INFO_SUCCESS
+    }
+}
+
+export const partnerCloseDialog = () => {
+    return {
+        type: actionTypes.PARTNER_CLOSE_DIALOG
     }
 }
