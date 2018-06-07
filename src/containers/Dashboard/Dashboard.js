@@ -10,6 +10,7 @@ import DialogMessage from '../../components/DialogMessage/DialogMessage';
 import EditProfile from '../admin/ManageUser/EditProfile/EditProfile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import ManageInternship from '../partner/ManageInternship/ManageInternship';
+import SearchPage from '../student/SearchPage/SearchPage';
 
 class Dashboard extends Component {
     render () {
@@ -30,6 +31,7 @@ class Dashboard extends Component {
             case 'student':
                 routes = (
                     <Switch>
+                        <Route path='/dashboard' component={SearchPage} />
                         <Route path='/profile' component={UpdateProfile} />
                         <Route component={PageNotFound} />
                     </Switch>
