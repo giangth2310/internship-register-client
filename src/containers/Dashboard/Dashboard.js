@@ -3,7 +3,7 @@ import classes from './Dashboard.css';
 import Sidebar from '../Sidebar/Sidebar';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ManageUser from '../admin/ManageUser/ManageUser';
 import PageNotFound from '../../components/PageNotFound/PageNotFound'; 
 import DialogMessage from '../../components/DialogMessage/DialogMessage';
@@ -11,10 +11,10 @@ import EditProfile from '../admin/ManageUser/EditProfile/EditProfile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import ManageInternship from '../partner/ManageInternship/ManageInternship';
 import SearchPage from '../student/SearchPage/SearchPage';
+import PostDetail from '../student/PostDetail/PostDetail';
 
 class Dashboard extends Component {
     render () {
-
         let routes = null;
 
         switch (localStorage.getItem('userType')) {
@@ -31,9 +31,10 @@ class Dashboard extends Component {
             case 'student':
                 routes = (
                     <Switch>
+                        <Route path='/internship-post/:employId' component={PostDetail} />
                         <Route path='/dashboard' component={SearchPage} />
                         <Route path='/profile' component={UpdateProfile} />
-                        <Route component={PageNotFound} />
+                        <Redirect to='/dashboard' />
                     </Switch>
                 );
                 break;

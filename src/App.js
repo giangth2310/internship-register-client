@@ -17,6 +17,7 @@ jss.options.insertionPoint = "insertion-point-jss";
 
 class App extends Component {
   componentDidMount() {
+    this.props.setRedirectpath(this.props.location.pathname);
     this.props.onAutoSignIn();
   }
 
@@ -54,7 +55,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAutoSignIn: () => dispatch(actions.tryAutoSignIn())
+    onAutoSignIn: () => dispatch(actions.tryAutoSignIn()),
+    setRedirectpath: (path) => dispatch(actions.setRedirectPath(path))
   }
 }
 

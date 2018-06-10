@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, TextField, Button } from 'material-ui';
+import { Paper, TextField, Button, Input, InputLabel } from 'material-ui';
 import { Editor } from 'react-draft-wysiwyg';
 import {
     EditorState,
@@ -14,6 +14,7 @@ class CreateForm extends Component {
     state = {
         title: null,
         editorState: EditorState.createEmpty(),
+        expireDate: '2018-01-01'
     }
 
     onEditorStateChange = (editorState) => {
@@ -23,14 +24,18 @@ class CreateForm extends Component {
     };
 
     onUploadHandler = () => {
-        const { title, editorState } = this.state;
+        const { title, editorState, expireDate } = this.state;
         const content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-        this.props.onUpload(title, content);
+        this.props.onUpload({
+            title: title,
+            content: content,
+            expireDate: expireDate
+        });
     }
 
-    onTitleChange = (event) => {
+    onInputChange = (event) => {
         this.setState({
-            title: event.target.value
+            [event.target.id]: event.target.value
         })
     }
 
@@ -51,9 +56,17 @@ class CreateForm extends Component {
                     InputLabelProps={{
                         className: classes.label
                     }}
-                    fullWidth
-                    onChange={this.onTitleChange}
+                    onChange={this.onInputChange}
+                    className={classes.Title}
                 />
+                <InputLabel htmlFor='expireDate' className={classes.label}>Ngày hết hạn: </InputLabel>
+                <Input 
+                    id='expireDate'
+                    value={this.state.expireDate}
+                    disableUnderline
+                    className={classes.input}
+                    type='date' 
+                    onChange={this.onInputChange} />
                 <Paper>
                     <div className={classes.Editor}>
                         <Editor

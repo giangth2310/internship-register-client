@@ -2,7 +2,8 @@ export {
     signin,
     signout,
     tryAutoSignIn,
-    loadAvatar
+    loadAvatar,
+    setRedirectPath
 } from './signin';
 
 export {

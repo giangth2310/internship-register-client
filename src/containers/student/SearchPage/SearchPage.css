@@ -1,5 +1,4 @@
 .SearchPage {
-    min-height: 100%;
 }
 
 .SearchBar {
@@ -47,4 +46,20 @@
     box-sizing: border-box;
     font-size: 1rem;
     padding: 10px;    
+}
+
+.Loading {
+    align-self: center;
+}
+
+.SearchResult {
+    margin-top: 200px;
+    margin-left: calc(50% - 500px);
+    margin-bottom: 50px;
+    width: 1000px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    background: white;
+    padding: 20px;
 }

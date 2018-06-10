@@ -39,7 +39,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCreateEmployInfo: (title, content) => dispatch(actions.createEmployInfo(title, content)),
+        onCreateEmployInfo: (post) => dispatch(actions.createEmployInfo(post)),
         onCloseDialog: () => dispatch(actions.partnerCloseDialog())
     }
 }

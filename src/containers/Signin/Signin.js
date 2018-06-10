@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-
 
 import Button from 'material-ui/Button';
 import classes from './Signin.css';
@@ -61,6 +59,16 @@ class Signin extends Component {
         return isValid;
     }
 
+    componentDidUpdate() {
+        this.componentDidMount();
+    }
+
+    componentDidMount() {
+        if (this.props.isSignin) {
+            this.props.history.push(this.props.redirectPath);
+        }
+    }
+
     render () {
         const form = (
             <form onSubmit={this.onSigninHandler}>
@@ -110,12 +118,10 @@ class Signin extends Component {
             </Grid>
         );
 
-        let authRedirect = null;
-        if (this.props.isSignin) {
-            authRedirect = <Redirect to='/dashboard' />;
-        }
+        let errorMessage = null;
+
         if (this.props.error) {
-            authRedirect = <Typography className={classes.ErrorMessage}>{this.props.error.message}</Typography>
+            errorMessage = <Typography className={classes.ErrorMessage}>{this.props.error.message}</Typography>
         }
 
         return (
@@ -123,7 +129,7 @@ class Signin extends Component {
                 <div className={classes.Signin}>
                     <Paper className={classes.Paper}>
                         {header}
-                        {authRedirect}
+                        {errorMessage}
                         {form}
                     </Paper>
                 </div>
@@ -136,7 +142,8 @@ const mapStateToProps = state => {
     return {
         loading: state.signin.loading,
         isSignin: state.signin.token !== null,
-        error: state.signin.error
+        error: state.signin.error,
+        redirectPath: state.signin.redirectPath
     }
 }
 

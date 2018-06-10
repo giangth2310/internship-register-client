@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
 import classes from './SearchPage.css';
-import { Button, IconButton, Grid } from 'material-ui';
+import { Button, IconButton, CircularProgress } from 'material-ui';
 import Axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
+import Card from '../../../components/Card/Card';
+import { Typography } from 'material-ui';
 
 class SearchPage extends Component {
 
     state = {
         keyword: '',
-        filterBy: 'title'
+        filterBy: 'title',
+        posts: null
+    }
+
+    componentDidMount() {
+        this.onSearchHandler();
     }
 
     onSearchHandler = () => {
-        Axios.get('/search', {
-            params: this.state
-        })
+        Axios.get(`/search?keyword=${this.state.keyword}&filterBy=${this.state.filterBy}`)
             .then(response => {
                 console.log(response);
+                this.setState({
+                    posts: response.data.res
+                })
             })
             .catch(error => {
                 console.log(error);
@@ -58,12 +66,16 @@ class SearchPage extends Component {
                         color='primary'
                         variant='raised' >Tìm kiếm</Button>
                 </div>
-                <Grid container>
-                    <Grid item xs={6}>
-                    </Grid>
-                    <Grid item xs={6}>
-                    </Grid>
-                </Grid>
+                <div className={classes.SearchResult}>
+                    <Typography variant="headline" gutterBottom>
+                        {this.state.posts ? `Có ${this.state.posts.length} tin thực tập` : 'Kết quả tìm kiếm:'}
+                    </Typography>
+                    {this.state.posts ? this.state.posts.map(el => {
+                        return (
+                            <Card key={el.employId} {...el} />
+                        );
+                    }) : <CircularProgress className={classes.Loading} />}
+                </div>
             </div>
         );
     }

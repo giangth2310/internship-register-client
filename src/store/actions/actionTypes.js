@@ -2,6 +2,7 @@
 export const SIGN_IN_START = 'SIGN_IN_START';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
+export const SET_REDIRECT_PATH = 'SET_REDIRECT_PATH';
 
 export const SIGN_OUT = 'SIGN_OUT';
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';

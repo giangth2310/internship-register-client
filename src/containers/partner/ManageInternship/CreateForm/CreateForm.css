@@ -2,6 +2,10 @@
     margin: 0 30px 0 30px;
 }
 
+.Title {
+    width: 600px;
+}
+
 .Editor {
     padding: 10px;
     height: 500px;

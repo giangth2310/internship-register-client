@@ -130,3 +130,10 @@ export const loadAvatarSuccess = (path, displayName) => {
         }
     }
 }
+
+export const setRedirectPath = (path) => {
+    return {
+        type: actionTypes.SET_REDIRECT_PATH,
+        path: path
+    }
+}

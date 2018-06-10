@@ -8,11 +8,17 @@ const initialState = {
     error: null,
     id: null,
     avatar: null,
-    displayName: null
+    displayName: null,
+    redirectPath: '/dashboard'
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.SET_REDIRECT_PATH:
+            return {
+                ...state,
+                redirectPath: action.path
+            }
         case actionTypes.SIGN_IN_START:
             return {
                 ...state,

@@ -1,13 +1,9 @@
 import * as actionTypes from './actionTypes';
 import Axios from 'axios';
 
-export const createEmployInfo = (title, content) => {
+export const createEmployInfo = (post) => {
     return dispatch => {
-        const employInfo = {
-            title: title,
-            content: content
-        }
-        Axios.post('/employInfo/create', employInfo)
+        Axios.post('/employInfo/create', post)
             .then(response => {
                 if (response.data.success) {
                     dispatch(createEmployInfoSuccess());
