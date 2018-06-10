@@ -2,3 +2,21 @@
     margin: 30px;
     padding: 30px;
 }
+
+.Partner {
+    background-color: #eee;
+    border: 2px solid #eee;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.FollowButton {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.Logo {
+    max-width: 100%;
+    border: 2px solid #eee;
+    box-sizing: border-box;
+}

@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
 import classes from './SearchPage.css';
-import { Button, IconButton, CircularProgress } from 'material-ui';
+import { Button, CircularProgress } from 'material-ui';
 import Axios from 'axios';
-import SearchIcon from '@material-ui/icons/Search';
 import Card from '../../../components/Card/Card';
 import { Typography } from 'material-ui';
+import { suggestions } from './suggestions';
+import Autosuggest from 'react-autosuggest';
+
+const renderSuggestion = suggestion => (
+    <div>
+        {suggestion.value}
+    </div>
+);
+
+const getSuggestionValue = suggestion => suggestion.value;
+
+const getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+    
+    return inputLength === 0 ? [] : suggestions.filter(el =>
+        el.value.toLowerCase().includes(inputValue)
+    );
+};
+
 
 class SearchPage extends Component {
 
     state = {
         keyword: '',
         filterBy: 'title',
-        posts: null
+        posts: null,
+        suggestions: []
     }
 
     componentDidMount() {
@@ -31,9 +51,9 @@ class SearchPage extends Component {
             })
     }
 
-    onInputChange = (event) => {
+    onInputChange = (event, { newValue }) => {
         this.setState({
-            keyword: event.target.value
+            keyword: newValue
         })
     }
 
@@ -43,18 +63,38 @@ class SearchPage extends Component {
         })
     }
 
+    onSuggestionsClearRequested = () => {
+        this.setState({
+            suggestions: []
+        });
+    };
+
+    onSuggestionsFetchRequested = ({ value }) => {
+        this.setState({
+            suggestions: getSuggestions(value)
+        });
+    };
+
     render () {
+        const inputProps = {
+            className: classes.Input,
+            placeholder: 'Từ khóa',
+            onChange: this.onInputChange,
+            value: this.state.keyword,
+            type: 'search',
+        };
         return (
-            <div className={classes.SearchPage}>
+            <div>
                 <div className={classes.SearchBar} >
                     <div className={classes.InputField}>
-                        <input
-                            className={classes.Input}
-                            placeholder='Từ khóa'
-                            onChange={this.onInputChange} />
-                        <IconButton className={classes.SearchIcon} onClick={this.onSearchHandler} > 
-                            <SearchIcon />
-                        </IconButton>
+                        <Autosuggest
+                            suggestions={this.state.suggestions}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                            getSuggestionValue={getSuggestionValue}
+                            renderSuggestion={renderSuggestion}
+                            inputProps={inputProps}
+                        />
                     </div>
                     <select value={this.state.filterBy} className={classes.SelectBox} onChange={this.onFilterByChange}>
                         <option value='title'>Tên bài đăng</option>
