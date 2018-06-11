@@ -1,0 +1,20 @@
+.Message {
+    display: flex;
+    padding: 50px;
+}
+
+.EditorContainer {
+    min-height: 300px;
+    display: flex;
+}
+
+.Left {
+    margin-right: 30px;
+    min-height: 75vh;
+    padding: 30px;
+}
+
+.Right {
+    min-height: 75vh;
+    padding: 30px;
+}

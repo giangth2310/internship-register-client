@@ -5,7 +5,7 @@ import {
     Drawer, 
     Avatar, 
     Divider, 
-    Typography 
+    Typography, 
 } from 'material-ui';
 import { connect } from 'react-redux';
 import NavigationItem from '../../components/Navigation/NavigationItem/NavigationItem';
@@ -58,9 +58,19 @@ class Sidebar extends Component {
                     </Typography>
                     <Divider />
                     <List component='nav' >
-                        {sidebarItems.map(el => (
-                            <NavigationItem key={el.icon} link={el.link} text={el.text} icon={el.icon} />
-                        ))}
+                        {sidebarItems.map(el => {
+                            if (el.link === '/message') {
+                                const unseenMessage = this.props.newMessage.filter(el => {
+                                    return el.seen === 0;
+                                })
+                                return (
+                                    <NavigationItem key={el.icon} 
+                                        link={el.link} text={el.text} icon={el.icon}
+                                        badge={unseenMessage.length} />
+                                );
+                            }
+                            return <NavigationItem key={el.icon} link={el.link} text={el.text} icon={el.icon} />;
+                        })}
                     </List>
             </Drawer>
         );
@@ -71,7 +81,8 @@ const mapStateToProps = state => {
     return {
         userType: state.signin.userType,
         avatar: state.signin.avatar,
-        displayName: state.signin.displayName
+        displayName: state.signin.displayName,
+        newMessage: state.signin.newMessage
     }
 }
 

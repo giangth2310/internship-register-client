@@ -3,7 +3,8 @@ export {
     signout,
     tryAutoSignIn,
     loadAvatar,
-    setRedirectPath
+    setRedirectPath,
+    fetchNewMessage
 } from './signin';
 
 export {

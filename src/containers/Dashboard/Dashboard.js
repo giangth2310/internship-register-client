@@ -5,15 +5,26 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import ManageUser from '../admin/ManageUser/ManageUser';
-import PageNotFound from '../../components/PageNotFound/PageNotFound'; 
 import DialogMessage from '../../components/DialogMessage/DialogMessage';
 import EditProfile from '../admin/ManageUser/EditProfile/EditProfile';
 import UpdateProfile from '../UpdateProfile/UpdateProfile';
 import ManageInternship from '../partner/ManageInternship/ManageInternship';
 import SearchPage from '../student/SearchPage/SearchPage';
 import PostDetail from '../student/PostDetail/PostDetail';
+import Message from '../Message/Message';
+
+let checkNewMessage;
 
 class Dashboard extends Component {
+    componentDidMount() {
+        this.props.fetchNewMessage();
+        checkNewMessage = setInterval(this.props.fetchNewMessage, 60000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(checkNewMessage);
+    }
+
     render () {
         let routes = null;
 
@@ -22,9 +33,10 @@ class Dashboard extends Component {
                 routes = (
                     <Switch>
                         <Route path='/profile' component={UpdateProfile} />
+                        <Route path='/message' component={Message} />
                         <Route path='/dashboard/edit/:userType/:id' component={EditProfile} />
                         <Route path='/dashboard' component={ManageUser} />
-                        <Route component={PageNotFound} />
+                        <Redirect to='/dashboard' />
                     </Switch>
                 );
                 break;
@@ -32,6 +44,7 @@ class Dashboard extends Component {
                 routes = (
                     <Switch>
                         <Route path='/internship-post/:employId' component={PostDetail} />
+                        <Route path='/message' component={Message} />
                         <Route path='/dashboard' component={SearchPage} />
                         <Route path='/profile' component={UpdateProfile} />
                         <Redirect to='/dashboard' />
@@ -41,8 +54,9 @@ class Dashboard extends Component {
             case 'lecturer':
                 routes = (
                     <Switch>
+                        <Route path='/message' component={Message} />
                         <Route path='/profile' component={UpdateProfile} />
-                        <Route component={PageNotFound} />
+                        <Redirect to='/dashboard' />
                     </Switch>
                 );
                 break;
@@ -50,8 +64,9 @@ class Dashboard extends Component {
                 routes = (
                     <Switch>
                         <Route path='/dashboard' component={ManageInternship} />
+                        <Route path='/message' component={Message} />
                         <Route path='/profile' component={UpdateProfile} />
-                        <Route component={PageNotFound} />
+                        <Redirect to='/dashboard' />
                     </Switch>
                 );
                 break;
@@ -83,7 +98,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onTokenExpired: () => dispatch(actions.signout())
+        onTokenExpired: () => dispatch(actions.signout()),
+        fetchNewMessage: () => dispatch(actions.fetchNewMessage())
     }
 }
 

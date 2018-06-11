@@ -9,11 +9,17 @@ const initialState = {
     id: null,
     avatar: null,
     displayName: null,
-    redirectPath: '/dashboard'
+    redirectPath: '/dashboard',
+    newMessage: [],
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.FETCH_NEW_MESSAGE_SUCCESS:
+            return {
+                ...state,
+                newMessage: action.newMessage
+            }
         case actionTypes.SET_REDIRECT_PATH:
             return {
                 ...state,

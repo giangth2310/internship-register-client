@@ -10,7 +10,7 @@ export const signinStart = () => {
 }
 
 export const signinSuccess = (data, error) => {
-    Axios.defaults.headers.common['Authorization'] = data.token;    
+    Axios.defaults.headers.common['Authorization'] = data.token; 
     return {
         type: actionTypes.SIGN_IN_SUCCESS,
         data: data
@@ -135,5 +135,25 @@ export const setRedirectPath = (path) => {
     return {
         type: actionTypes.SET_REDIRECT_PATH,
         path: path
+    }
+}
+
+export const fetchNewMessage = () => {
+    return dispatch => {
+        Axios.get('/message/view?filter=inbox')
+            .then(response => {
+                console.log(response);
+                dispatch(fetchNewMessageSuccess(response.data.res));
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+}
+
+export const fetchNewMessageSuccess = (newMessage) => {
+    return {
+        type: actionTypes.FETCH_NEW_MESSAGE_SUCCESS,
+        newMessage: newMessage
     }
 }

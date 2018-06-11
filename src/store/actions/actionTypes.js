@@ -6,7 +6,8 @@ export const SET_REDIRECT_PATH = 'SET_REDIRECT_PATH';
 
 export const SIGN_OUT = 'SIGN_OUT';
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
-export const LOAD_AVATAR_SUCCESS = 'LOAD_AVATAR_SUCCESS'
+export const LOAD_AVATAR_SUCCESS = 'LOAD_AVATAR_SUCCESS';
+export const FETCH_NEW_MESSAGE_SUCCESS = 'FETCH_NEW_MESSAGE_SUCCESS';
 
 // action của admin reducer
 export const LOAD_ALL_INFO_SUCCESS = 'LOAD_ALL_INFO_SUCCESS'; 
