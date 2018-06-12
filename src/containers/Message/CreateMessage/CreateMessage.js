@@ -19,7 +19,8 @@ class CreateMessage extends Component {
         replyTo: null,
         receiverUsername: '',
         isReply: false,
-        sendSuccess: false
+        sendSuccess: false,
+        error: null
     }
 
     onInputChange = (event) => {
@@ -56,12 +57,19 @@ class CreateMessage extends Component {
             replyTo: this.state.replyTo
         }
 
-        Axios.put('/message/send', message)
+        Axios.post('/message/send', message)
             .then(response => {
                 console.log(response);
-                this.setState({
-                    sendSuccess: true
-                });
+                if (response.data.success) {
+                    this.setState({
+                        sendSuccess: true
+                    });
+                } else {
+                    this.setState({
+                        sendSuccess: false,
+                        error: response.data.error
+                    });
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -72,6 +80,12 @@ class CreateMessage extends Component {
         this.props.history.push('/message');
     }
     
+    onCloseErrorDialog = () => {
+        this.setState({
+            error: null
+        })
+    }
+
     render () {
         return (
             <div className={classes.container} >
@@ -123,6 +137,11 @@ class CreateMessage extends Component {
                     open={this.state.sendSuccess}
                     title='Gửi thành công'
                     onClose={this.onCloseSuccessDialog} />
+                <DialogMessage
+                    open={this.state.error ? true : false}
+                    title='Có lỗi xảy ra :('
+                    content={this.state.error}
+                    onClose={this.onCloseErrorDialog} />
             </div>
         );
     }

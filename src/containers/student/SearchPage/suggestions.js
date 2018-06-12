@@ -12,4 +12,12 @@ export const suggestions = [
     { value: 'react' },
     { value: 'vuejs' },
     { value: 'docker' },
+    { value: 'c' },
+    { value: 'c++' },
+    { value: 'kotlin' },
+    { value: 'python' },
+    { value: 'ruby' },
+    { value: 'swift' },
+    { value: 'septeni' },
+    { value: 'fpt' },
 ]
