@@ -1,20 +1,49 @@
-.Message {
-    display: flex;
-    padding: 50px;
-}
-
-.EditorContainer {
-    min-height: 300px;
-    display: flex;
+.Link {
+    text-decoration: none;
+    color: black;
 }
 
 .Left {
-    margin-right: 30px;
-    min-height: 75vh;
-    padding: 30px;
+    padding: 50px;
+}
+
+.Paper {
+    padding: 20px 10px;
+}
+
+.MessageCard {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background: #eee;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    padding: 10px 0 10px 0;
+}
+
+.Unseen {
+    background: white;
+    font-weight: bold;
+}
+
+.Tabs {
+    background: #fafafa;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Username {
+    width: 20%;
+    display: inline-flex;
+    overflow: hidden;
+}
+
+.Title {
+    width: 70%;
+    display: inline-flex;
+    overflow: hidden;
 }
 
 .Right {
-    min-height: 75vh;
-    padding: 30px;
+    padding: 50px 50px 50px 0;
 }

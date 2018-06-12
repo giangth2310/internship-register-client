@@ -1,32 +1,73 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Paper } from 'material-ui';
+import { Paper, Grid, Divider, Tabs, Tab, Button } from 'material-ui';
 import classes from './Message.css';
-import { Editor } from 'react-draft-wysiwyg';
+import { Link, Switch, Route } from 'react-router-dom';
+import CreateMessage from './CreateMessage/CreateMessage';
+import ViewMessage from './ViewMessage/ViewMessage';
 
 class Message extends Component {
+
+    componentDidMount() {
+        if (this.props.location.pathname === '/message') {
+            this.onCreateMessage();
+        }
+    }
+
+    onCreateMessage = () => {
+        this.props.history.push('/message/create/new');
+    }
     
     render () {
-        return (
-            <div className={classes.Message}>
-                <Paper className={classes.Left}>
-                    asdasdasdasdadadasdsadhadbjadbsadkaksjskajkjsadkajsdasdjsdakdbksadksjdakdksjadkdbksadj
-                    
-                </Paper>
+        const listMessage = (
+            this.props.inbox.map(el => {
+                return (
+                    <Link to={'/message/view/' + el.messageId} className={classes.Link} key={el.messageId}  >
+                        <div 
+                            className={el.seen === 0 ? classes.MessageCard + ' ' + classes.Unseen 
+                                        : classes.MessageCard} >
+                            <div className={classes.Username} >
+                                {el.senderUsername}
+                            </div>
+                            <div className={classes.Title} >
+                                {el.title}
+                            </div>
+                        </div>
+                        <Divider />
+                    </Link>
+                );
+            })
+        );
 
-                <Paper className={classes.Right}>
-                    <div className={classes.EditorContainer}>
-                        <Editor
-                            toolbarClassName = "rdw-storybook-toolbar"
-                            editorClassName = "rdw-storybook-editor"
-                            wrapperClassName = "rdw-storybook-wrapper"
-                            // editorState = {this.state.editorState}
-                            // onEditorStateChange = {this.onEditorStateChange}
-                        />
+        return (
+            <Grid container >
+                <Grid item xs={6}>
+                    <div className={classes.Left} >
+                        <Paper className={classes.Paper} >
+                            <div className={classes.Tabs}>
+                                <Tabs value='inbox' indicatorColor='primary' >
+                                    <Tab label='INBOX' value='inbox' />
+                                </Tabs>
+                                <Button color='primary' variant='raised' onClick={this.onCreateMessage} >
+                                    Soạn tin
+                                </Button>
+                            </div>
+                            {listMessage}
+                        </Paper>
                     </div>
-                    <p>hasagi</p>
-                </Paper>
-            </div>
+                </Grid>
+                <Grid item xs={6}>
+                    <div className={classes.Right} >
+                        <Paper>
+                            <Switch>
+                                <Route path='/message/view/:messageId' component={ViewMessage} />
+                                <Route path='/message/create/new' component={CreateMessage} />
+                                <Route path='/message/create/reply' component={CreateMessage} />
+                            </Switch>
+                        </Paper>
+                    </div>
+                </Grid>
+            </Grid>
         );
     }
 }

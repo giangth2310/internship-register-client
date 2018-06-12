@@ -54,7 +54,8 @@ class ManageUser extends Component {
                 <Paper className={classes.Tabbar}>
                     <Tabs 
                         value={this.state.selectedTab} 
-                        onChange={this.onTabChangeHandler} >
+                        onChange={this.onTabChangeHandler}
+                        indicatorColor='primary' >
                         <Tab value='student' label='Sinh viên' />
                         <Tab value='lecturer' label='Giảng viên' />
                         <Tab value='partner' label='Đối tác' />

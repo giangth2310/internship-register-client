@@ -157,3 +157,10 @@ export const fetchNewMessageSuccess = (newMessage) => {
         newMessage: newMessage
     }
 }
+
+export const viewMessage = (message) => {
+    return {
+        type: actionTypes.VIEW_MESSAGE,
+        message: message
+    }
+}

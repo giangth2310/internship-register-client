@@ -4,7 +4,8 @@ export {
     tryAutoSignIn,
     loadAvatar,
     setRedirectPath,
-    fetchNewMessage
+    fetchNewMessage,
+    viewMessage
 } from './signin';
 
 export {

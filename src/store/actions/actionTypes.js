@@ -8,6 +8,7 @@ export const SIGN_OUT = 'SIGN_OUT';
 export const TOKEN_EXPIRED = 'TOKEN_EXPIRED';
 export const LOAD_AVATAR_SUCCESS = 'LOAD_AVATAR_SUCCESS';
 export const FETCH_NEW_MESSAGE_SUCCESS = 'FETCH_NEW_MESSAGE_SUCCESS';
+export const VIEW_MESSAGE = 'VIEW_MESSAGE';
 
 // action của admin reducer
 export const LOAD_ALL_INFO_SUCCESS = 'LOAD_ALL_INFO_SUCCESS'; 

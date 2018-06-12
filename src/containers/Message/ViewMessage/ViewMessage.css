@@ -1,0 +1,10 @@
+.ViewMessage {
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}

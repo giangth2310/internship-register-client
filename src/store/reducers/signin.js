@@ -15,6 +15,19 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.VIEW_MESSAGE:
+            const newArray = [...state.newMessage];
+            const indexToReplace = state.newMessage.findIndex(el => el.messageId === action.message.messageId);
+            if (state.newMessage[indexToReplace].seen === 0) {
+                newArray.splice(indexToReplace, 1, action.message);
+                return {
+                    ...state,
+                    newMessage: newArray
+                }
+            }
+            return {
+                ...state
+            }
         case actionTypes.FETCH_NEW_MESSAGE_SUCCESS:
             return {
                 ...state,
