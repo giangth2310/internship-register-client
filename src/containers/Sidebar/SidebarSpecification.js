@@ -19,7 +19,11 @@ const SidebarSpecification = {
 
     ],
     admin: [
-        
+        {
+            link: '/internship',
+            text: 'Thực tập',
+            icon: 'business'
+        },
     ]
 };
 
