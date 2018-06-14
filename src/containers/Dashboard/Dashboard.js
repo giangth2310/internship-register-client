@@ -16,6 +16,8 @@ import ManageInternshipTerm from '../admin/ManageInternship/ManageInternship';
 import StudentInternship from '../student/Internship/Internship';
 import PostEdit from '../partner/ManageInternship/PostEdit/PostEdit';
 import Report from '../student/Report/Report';
+import ManageStudent from '../lecturer/ManageStudent/ManageStudent';
+import ViewStudent from '../lecturer/ManageStudent/ViewStudent/ViewStudent';
 
 let checkNewMessage;
 
@@ -61,7 +63,9 @@ class Dashboard extends Component {
             case 'lecturer':
                 routes = (
                     <Switch>
+                        <Route path='/student/:studentId' component={ViewStudent} />
                         <Route path='/message' component={Message} />
+                        <Route path='/dashboard' component={ManageStudent} />
                         <Route path='/profile' component={UpdateProfile} />
                         <Redirect to='/dashboard' />
                     </Switch>

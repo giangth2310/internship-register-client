@@ -1,0 +1,51 @@
+.Paper {
+    margin: 50px;
+    padding: 30px;
+}
+
+.Input {
+    padding: 10px;
+    width: 40vw;
+    border: 2px solid #eee;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: inherit;
+}
+
+.Input:focus {
+    border-color: dodgerBlue;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+.Result {
+    margin-top: 20px;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Card {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    margin: 10px 5%;
+}
+
+.Card:hover {
+    cursor: pointer;
+}
+
+.avatar {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.avatarContainer {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+}

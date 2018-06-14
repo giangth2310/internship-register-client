@@ -9,19 +9,30 @@ import CreateDialog from './CreateDialog/CreateDialog';
 class Report extends Component {
 
     state = {
+        finals: [],
         reports: [],
         editReport: null,
         openCreate: false
     }
 
     componentDidMount() {
-        Axios.get('/student/assignment')
+        Axios.get('/student/assignment?type=weekly')
             .then(response => {
                 console.log(response);
                 this.setState({
                     reports: response.data.res,
                     editReport: null,
                     openCreate: false
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        Axios.get('/student/assignment?type=final')
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    finals: response.data.res
                 })
             })
             .catch(error => {
@@ -122,6 +133,24 @@ class Report extends Component {
                 <Typography variant="title" gutterBottom>
                     Báo cáo toàn văn:
                 </Typography>
+                <div className={classes.container}>
+                    {this.state.finals.length !== 0 ? this.state.finals.map(el => {
+                        return (
+                            <div key={el.assignmentId} className={classes.Card} >
+                                <Typography variant="subheading" gutterBottom>
+                                    {el.name}
+                                </Typography>
+                                <div>
+                                    <Button color='primary' onClick={() => this.onEdit(el)} >Sửa</Button>
+                                    <Button color='secondary' onClick={() => this.onDelete(el)} >Xóa</Button>
+                                </div>
+                            </div>
+                        );
+                    })
+                    : <Typography variant="body1" gutterBottom align='center'>
+                        Chưa có báo cáo
+                    </Typography>}
+                </div>
                 <Typography variant="title" gutterBottom>
                     Báo cáo định kỳ:
                 </Typography>

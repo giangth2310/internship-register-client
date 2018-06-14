@@ -1,0 +1,14 @@
+.container {
+    padding: 30px;
+    margin: 50px;
+}
+
+.Card {
+    width: 40%;
+    margin-left: 30%;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #eee;
+}

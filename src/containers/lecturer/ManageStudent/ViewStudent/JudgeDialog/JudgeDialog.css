@@ -1,0 +1,9 @@
+.content {
+    display: flex;
+    flex-flow: column;
+}
+
+.Input {
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}
