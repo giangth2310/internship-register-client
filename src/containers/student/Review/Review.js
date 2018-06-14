@@ -23,9 +23,13 @@ class Review extends Component {
 
     render () {
         return (
-            <DialogMessage open onClose={this.onClose}
-                title={'Đánh giá của ' + this.state.partnerName}
-                content={this.state.partnerComment} />
+            <div>
+                {this.state.partnerName ? <DialogMessage open onClose={this.onClose}
+                    title={'Đánh giá của ' + this.state.partnerName}
+                    content={this.state.partnerComment} /> : 
+                    <DialogMessage open onClose={this.onClose}
+                    title={'Chưa nhận được đánh giá nào'} />}
+            </div>
         );
     }
 }
