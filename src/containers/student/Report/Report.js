@@ -54,11 +54,9 @@ class Report extends Component {
     onFileSelectedHandler = (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile === undefined) return;
-        const formData = new FormData();
-        formData.append('file', selectedFile, selectedFile.name);
         const newReport = {
             ...this.state.editReport,
-            file: formData
+            file: selectedFile
         }
         this.setState({
             editReport: newReport
@@ -66,11 +64,12 @@ class Report extends Component {
     }
 
     onUpload = () => {
-        const putBody = {
-            content: this.state.editReport.content,
-            document: this.state.editReport.file
-        }
-        Axios.put('/student/assignment/' + this.state.editReport.assignmentId, putBody)
+        let selectedFile = this.state.editReport.file;
+        if (!selectedFile) selectedFile = null;
+        const formData = new FormData();
+        formData.append('document', selectedFile, selectedFile.name);
+        formData.append('content', this.state.editReport.content);
+        Axios.put('/student/assignment/' + this.state.editReport.assignmentId, formData)
             .then(response => {
                 console.log(response);
             })
