@@ -1,0 +1,21 @@
+.Paper {
+    margin: 50px;
+    display: flex;
+    flex-flow: column;
+    padding: 30px;
+}
+
+.container {
+    display: flex;
+    flex-flow: column;
+}
+
+.Card {
+    width: 60%;
+    margin-left: 20%;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #eee;
+}
