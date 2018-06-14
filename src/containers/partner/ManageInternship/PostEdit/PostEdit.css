@@ -1,0 +1,26 @@
+.container {
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Card {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    margin: 10px 5%;
+}
+
+.avatar {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.avatarContainer {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+}

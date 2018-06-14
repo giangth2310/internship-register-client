@@ -14,6 +14,7 @@ import PostDetail from '../student/PostDetail/PostDetail';
 import Message from '../Message/Message';
 import ManageInternshipTerm from '../admin/ManageInternship/ManageInternship';
 import StudentInternship from '../student/Internship/Internship';
+import PostEdit from '../partner/ManageInternship/PostEdit/PostEdit';
 
 let checkNewMessage;
 
@@ -67,6 +68,7 @@ class Dashboard extends Component {
             case 'partner':
                 routes = (
                     <Switch>
+                        <Route path='/internship-post/:employId' component={PostEdit} />
                         <Route path='/dashboard' component={ManageInternship} />
                         <Route path='/message' component={Message} />
                         <Route path='/profile' component={UpdateProfile} />
