@@ -2,6 +2,11 @@
 const SidebarSpecification = {
     student: [
         {
+            link: '/internship',
+            text: 'Thực tập',
+            icon: 'business'
+        },
+        {
             link: '/report',
             text: 'Báo cáo',
             icon: 'description'
