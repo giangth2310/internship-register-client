@@ -5,7 +5,7 @@ import InternShipTerm from './InternshipTerm/InternshipTerm';
 class ManageInternship extends Component {
 
     state = {
-        selectedTab: 'student'
+        selectedTab: 'internshipTerm'
     }
 
     onTabChangeHandler = (event, value) => {
@@ -15,9 +15,7 @@ class ManageInternship extends Component {
     }
 
     onCloseInternshipTerm = () => {
-        this.setState({
-            selectedTab: 'student'
-        })
+        this.props.history.push('/dashboard');
     }
 
     render () {
@@ -28,7 +26,7 @@ class ManageInternship extends Component {
                         value={this.state.selectedTab} 
                         onChange={this.onTabChangeHandler}
                         indicatorColor='primary' >
-                        <Tab value='student' label='Sinh viên' />
+                        {/* <Tab value='student' label='Sinh viên' /> */}
                         <Tab value='internshipTerm' label='Kì thực tập' />
                     </Tabs>
                 </Paper>

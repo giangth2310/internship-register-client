@@ -21,7 +21,11 @@ const SidebarSpecification = {
 
     ],
     partner: [
-
+        {
+            link: '/internship',
+            text: 'Thực tập',
+            icon: 'business'
+        },
     ],
     admin: [
         {

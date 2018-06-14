@@ -18,6 +18,8 @@ import PostEdit from '../partner/ManageInternship/PostEdit/PostEdit';
 import Report from '../student/Report/Report';
 import ManageStudent from '../lecturer/ManageStudent/ManageStudent';
 import ViewStudent from '../lecturer/ManageStudent/ViewStudent/ViewStudent';
+import ReviewStudent from '../partner/ReviewStudent/ReviewStudent';
+import SeeReview from '../student/Review/Review';
 
 let checkNewMessage;
 
@@ -52,6 +54,7 @@ class Dashboard extends Component {
                     <Switch>
                         <Route path='/internship-post/:employId' component={PostDetail} />
                         <Route path='/message' component={Message} />
+                        <Route path='/review' component={SeeReview} />
                         <Route path='/report' component={Report} />
                         <Route path='/internship' component={StudentInternship} />
                         <Route path='/dashboard' component={SearchPage} />
@@ -76,6 +79,7 @@ class Dashboard extends Component {
                     <Switch>
                         <Route path='/internship-post/:employId' component={PostEdit} />
                         <Route path='/dashboard' component={ManageInternship} />
+                        <Route path='/internship' component={ReviewStudent} />
                         <Route path='/message' component={Message} />
                         <Route path='/profile' component={UpdateProfile} />
                         <Redirect to='/dashboard' />

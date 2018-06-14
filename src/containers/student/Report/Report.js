@@ -5,6 +5,7 @@ import { Typography, Button } from 'material-ui';
 import Axios from 'axios';
 import EditDialog from './EditDialog/EditDialog';
 import CreateDialog from './CreateDialog/CreateDialog';
+import DialogMessage from '../../../components/DialogMessage/DialogMessage';
 
 class Report extends Component {
 
@@ -12,7 +13,8 @@ class Report extends Component {
         finals: [],
         reports: [],
         editReport: null,
-        openCreate: false
+        openCreate: false,
+        comment: null
     }
 
     componentDidMount() {
@@ -121,9 +123,20 @@ class Report extends Component {
             })
     }
 
+    onCloseComment = () => {
+        this.setState({
+            comment: null
+        })
+    }
+
     render () {
         return (
             <Paper className={classes.Paper} >
+                <DialogMessage
+                    open={this.state.comment ? true : false}
+                    title='Nhận xét'
+                    onClose={this.onCloseComment}
+                    content={this.state.comment} /> 
                 <div>
                     <Button color='primary' variant='raised' onClick={() => this.setState({openCreate: true})} >Tạo báo cáo</Button>
                 </div>
@@ -140,7 +153,11 @@ class Report extends Component {
                                 <Typography variant="subheading" gutterBottom>
                                     {el.name}
                                 </Typography>
+                                <Typography variant="subheading" gutterBottom>
+                                    {el.score ? el.score : 'Chưa chấm'}
+                                </Typography>
                                 <div>
+                                    <Button onClick={() => this.setState({ comment: el.comment })} >Xem nhận xét</Button>
                                     <Button color='primary' onClick={() => this.onEdit(el)} >Sửa</Button>
                                     <Button color='secondary' onClick={() => this.onDelete(el)} >Xóa</Button>
                                 </div>
@@ -161,7 +178,11 @@ class Report extends Component {
                                 <Typography variant="subheading" gutterBottom>
                                     {el.name}
                                 </Typography>
+                                <Typography variant="subheading" gutterBottom>
+                                    {el.score ? el.score : 'Chưa chấm'}
+                                </Typography>
                                 <div>
+                                    <Button onClick={() => this.setState({ comment: el.comment })} >Xem nhận xét</Button>
                                     <Button color='primary' onClick={() => this.onEdit(el)} >Sửa</Button>
                                     <Button color='secondary' onClick={() => this.onDelete(el)} >Xóa</Button>
                                 </div>
