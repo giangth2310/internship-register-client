@@ -4,12 +4,14 @@ import classes from './Report.css';
 import { Typography, Button } from 'material-ui';
 import Axios from 'axios';
 import EditDialog from './EditDialog/EditDialog';
+import CreateDialog from './CreateDialog/CreateDialog';
 
 class Report extends Component {
 
     state = {
         reports: [],
         editReport: null,
+        openCreate: false
     }
 
     componentDidMount() {
@@ -17,7 +19,9 @@ class Report extends Component {
             .then(response => {
                 console.log(response);
                 this.setState({
-                    reports: response.data.res
+                    reports: response.data.res,
+                    editReport: null,
+                    openCreate: false
                 })
             })
             .catch(error => {
@@ -32,7 +36,14 @@ class Report extends Component {
     }
 
     onDelete = (report) => {
-        console.log(report);
+        Axios.delete('/student/assignment/' + report.assignmentId)
+            .then(response => {
+                console.log(response);
+                this.componentDidMount();
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
     
     closeEditDialog = () => {
@@ -72,6 +83,27 @@ class Report extends Component {
         Axios.put('/student/assignment/' + this.state.editReport.assignmentId, formData)
             .then(response => {
                 console.log(response);
+                this.componentDidMount();
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    onCreate = report => {
+        let selectedFile = report.document;
+        const formData = new FormData();
+        if (selectedFile) {
+            formData.append('document', selectedFile, selectedFile.name);
+        } else {
+            formData.append('document', null);
+        }
+        formData.append('content', report.content);
+        formData.append('type', report.type);
+        Axios.post('/student/assignment/', formData)
+            .then(response => {
+                console.log(response);
+                this.componentDidMount();
             })
             .catch(error => {
                 console.log(error);
@@ -81,6 +113,12 @@ class Report extends Component {
     render () {
         return (
             <Paper className={classes.Paper} >
+                <div>
+                    <Button color='primary' variant='raised' onClick={() => this.setState({openCreate: true})} >Tạo báo cáo</Button>
+                </div>
+                <CreateDialog onCreate={this.onCreate} onClose={() => this.setState({openCreate: false})}
+                    open={this.state.openCreate} />
+                <br/>
                 <Typography variant="title" gutterBottom>
                     Báo cáo toàn văn:
                 </Typography>
