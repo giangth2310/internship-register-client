@@ -119,6 +119,7 @@ class Profile extends Component {
                                     label='Mật khẩu'
                                     value={this.state.password}
                                     fullWidth
+                                    type='password'
                                     className={classes.marginTop}
                                     onChange={this.onInputChangeHandler}
                                     disabled={this.props.admin} />
@@ -126,6 +127,7 @@ class Profile extends Component {
                                     id='newPassword'
                                     label='Mật khẩu mới'
                                     value={this.state.newPassword}
+                                    type='password'
                                     fullWidth
                                     className={classes.marginTop}
                                     onChange={this.onInputChangeHandler} />
@@ -133,7 +135,8 @@ class Profile extends Component {
                                     id='validateNewPassword'
                                     label='Nhập lại mật khẩu mới'
                                     fullWidth
-                                    className={classes.marginTop}                                    
+                                    className={classes.marginTop} 
+                                    type='password'                                   
                                     value={this.state.validateNewPassword}
                                     onChange={this.onInputChangeHandler} />
                                 <Button 

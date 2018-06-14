@@ -119,12 +119,14 @@ class Profile extends Component {
                                     label='Mật khẩu'
                                     value={this.state.password}
                                     fullWidth
+                                    type='password'
                                     className={classes.marginTop}
                                     onChange={this.onInputChangeHandler}
                                     disabled={this.props.admin} />
                                 <TextField
                                     id='newPassword'
                                     label='Mật khẩu mới'
+                                    type='password'
                                     value={this.state.newPassword}
                                     fullWidth
                                     className={classes.marginTop}
@@ -133,6 +135,7 @@ class Profile extends Component {
                                     id='validateNewPassword'
                                     label='Nhập lại mật khẩu mới'
                                     fullWidth
+                                    type='password'
                                     className={classes.marginTop}                                    
                                     value={this.state.validateNewPassword}
                                     onChange={this.onInputChangeHandler} />

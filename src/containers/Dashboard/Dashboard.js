@@ -15,6 +15,7 @@ import Message from '../Message/Message';
 import ManageInternshipTerm from '../admin/ManageInternship/ManageInternship';
 import StudentInternship from '../student/Internship/Internship';
 import PostEdit from '../partner/ManageInternship/PostEdit/PostEdit';
+import Report from '../student/Report/Report';
 
 let checkNewMessage;
 
@@ -49,6 +50,7 @@ class Dashboard extends Component {
                     <Switch>
                         <Route path='/internship-post/:employId' component={PostDetail} />
                         <Route path='/message' component={Message} />
+                        <Route path='/report' component={Report} />
                         <Route path='/internship' component={StudentInternship} />
                         <Route path='/dashboard' component={SearchPage} />
                         <Route path='/profile' component={UpdateProfile} />
