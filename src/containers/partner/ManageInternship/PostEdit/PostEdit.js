@@ -65,6 +65,9 @@ class PostEdit extends Component {
     render () {
         return (
             <Paper className={classes.container} >
+                {this.state.students ? <Typography variant="display1" gutterBottom style={{margin: '30px'}} >
+                    Chưa có ai follow tin này
+                </Typography> : null}
                 <ProfileDialog open={this.state.profileDialog ? true : false} 
                     onClose={this.closeProfileDialog} {...this.state.profileDialog} />
                 {this.state.students.map(el => {

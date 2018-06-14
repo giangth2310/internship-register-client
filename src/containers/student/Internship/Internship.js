@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Tabs, Paper, Tab } from 'material-ui';
+import Status from './Status/Status';
 import Register from './Register/Register';
 
 class Internship extends Component {
     state = {
-        selectedTab: 'register'
+        selectedTab: 'status'
     }
 
     onTabChangeHandler = (event, value) => {
@@ -25,6 +26,7 @@ class Internship extends Component {
                     </Tabs>
                 </Paper>
                 {this.state.selectedTab === 'register' && <Register /> }
+                {this.state.selectedTab === 'status' && <Status /> }
             </Fragment>            
         );
     }

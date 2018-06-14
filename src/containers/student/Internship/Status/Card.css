@@ -1,0 +1,49 @@
+.Card {
+    background: inherit;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #eee;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transition: 0.5s;
+}
+
+.Card:hover {
+    transform:scale(1.01);
+    box-shadow: 2px 2px 2px #aaa;
+}
+
+.Title {
+    text-decoration: none;
+    color: black;
+}
+
+.Title:hover {
+    color: rgb(33, 150, 243);
+}
+
+.Logo {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 10px;
+}
+
+.Content {
+    margin: 10px;
+    width: 100%;
+}
+
+.ExpireTag {
+    font-size: 0.8em;
+    background: rgb(33, 150, 243);
+    color: white;
+    float: right;
+    padding: 0 10px;
+}
+
+.ExpireTag::after {
+    content: "";
+    clear: both;
+    display: table;
+}
